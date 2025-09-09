@@ -1,0 +1,303 @@
+---
+format: html
+page-layout: full
+echo: false
+warning: false
+footer-left: "Made with [surveydown](https://surveydown.org)"
+footer-right: '[<i class="bi bi-github"></i> Source Code](https://github.com/surveydown-dev/templates)'
+grid:
+    sidebar-width: 50px
+    body-width: 1400px
+    margin-width: 50px
+    gutter-width: 1.5rem
+---
+
+```{r}
+library(surveydown)
+library(here)
+library(plotly)
+```
+
+
+
+::: {.sd_page id=welcome}
+
+::: {.grid}
+
+::: {.g-col-2}
+
+# Side Bar
+```{r}
+sd_question(
+  type  = 'select',
+  id    = 'education',
+  label = "Choose X axis",
+  option = c(
+    "Acceleration" = "acc",
+    "Mass"           = "mass",
+    "HorsePower"       = "hp"
+  )
+)
+```
+
+:::
+
+::: {.g-col-5}
+
+
+# Left Side
+
+
+```{r}
+
+sd_question(
+  type  = 'mc',
+  id    = 'q0_1',
+  label = "How comfortable are you with using visualizations as a form of information sharing?",
+  option = c(
+    'Very uncomfortable - I find visualizations confusing and much prefer receiving information through text or verbal explanations'   = 'option_1',
+    'Somewhat uncomfortable - I can understand basic charts but often struggle to interpret more complex visualizations or extract key insights from them'   = 'option_2',
+    'Moderately comfortable - I\'m fine with standard visualizations like bar charts and line graphs, but complex or interactive visualizations can be overwhelming'  = 'option_3',
+    'Quite comfortable - I can easily interpret most types of visualizations and often find them more effective than text for understanding data and trends' = 'option_4',
+    'Extremely comfortable - I love working with visualizations of all types. I find them intuitive, can quickly extract insights from complex charts, and prefer visual information over text when possible' = 'option_5'
+  )
+)
+
+
+sd_question(
+  type  = 'mc',
+  id    = 'q0_2',
+  label = "What kind of data relationship does a scatter plot typically show?",
+  option = c(
+    'Distribution of categories'    = 'option_1',
+    'Proportions within a whole'    = 'option_2',
+    'Relationship between two numerical variables'    = 'option_3',
+        'Sequence over time' = 'option_4'
+  )
+)
+
+
+sd_question(
+  type  = 'mc',
+  id    = 'q0_3',
+  label = "What do individual points on a scatter plot represent?",
+  option = c(
+    'Categories'    = 'option_1',
+    'Data records or observations'    = 'option_2',
+    'Statistical summaries'    = 'option_3',
+        'Totals per group' = 'option_4'
+  )
+)
+
+
+
+sd_question(
+  type  = 'mc',
+  id    = 'q0_4',
+  label = "In a scatter plot, what does the size or color of points typically represent (if used)?",
+  option = c(
+    'Axis value'    = 'option_1',
+    'Category grouping or a third variable'    = 'option_2',
+    'Random styling'    = 'option_3',
+        'Statistical error' = 'option_4'
+  )
+)
+
+
+
+## Large Language Models Usage
+
+sd_question(
+  type   = "matrix",
+  id     = "llm_preference",
+  label  = "How often do you use LLM's for the following",
+  row    = c(
+    "Content Creation & Writing" = "CC",
+    "Content Enhancement & Editing" = "CE",
+    "Research & Information" = "RI",
+    "Technical & Programming" = "TP",
+    "Communication & Language" = "CL",
+    "Productivity & Organization" = "PO",
+    "Media & Analysis" = "MA"
+  ),
+  option = c(
+    "Never" = "option_1",
+    "Less than once a month"  = "option_2",
+    "Monthly "    = "option_3",
+    "Weekly"  = "option_4",
+    "Daily"    = "option_5"
+  )
+)
+
+
+
+
+### Please answer all the questions based on the visualizations in the dashboard [Link](https://0198214b-5aa5-077c-9e85-2da7df32aac5.share.connect.posit.cloud/)
+
+
+sd_question(
+  type  = "text",
+  id    = "unique_id",
+  label = "Enter the Unique Key you see on the dashboard"
+)
+
+sd_question(
+  type  = 'mc',
+  id    = 'q1',
+  label = "Which region appears to specialize in high-performance, low-efficiency vehicles?",
+  option = c(
+    'European manufacturers'    = 'European',
+    'Japanese manufacturers'    = 'Japanese',
+    'US manufacturers'    = 'US',
+        'All regions are similar' = 'All'
+  )
+)
+
+sd_question(
+  type  = "textarea",
+  id    = "q1_reason",
+  label = "What was your reasoning for that response?"
+)
+
+sd_question(
+  type  = 'mc',
+  id    = 'q2',
+  label = "Japanese vehicles in this dataset are characterized by:",
+  option = c(
+    'High horsepower and low MPG'    = 'option_1',
+    'High horsepower and high MPG'    = 'option_2',
+    'Low horsepower and low MPG'    = 'option_3',
+    'Low horsepower and high MPG' = 'option_4'
+  )
+)
+
+sd_question(
+  type  = "textarea",
+  id    = "q2_reason",
+  label = "What was your reasoning for that response?"
+)
+
+sd_question(
+  type  = 'mc',
+  id    = 'q3',
+  label = "Which region shows the greatest diversity in horsepower ratings?",
+  option = c(
+    'Europe'    = 'option_1',
+    'Japan'    = 'option_2',
+    'US'    = 'option_3',
+    'All regions show similar diversity' = 'option_4'
+  )
+)
+
+sd_question(
+  type  = "textarea",
+  id    = "q3_reason",
+  label = "What was your reasoning for that response?"
+)
+
+sd_question(
+  type  = 'mc',
+  id    = 'q4',
+  label = "Based on the plot, which statement is most accurate?",
+  option = c(
+    'Higher fuel efficiency always comes at the cost of performance'    = 'option_1',
+    'Vehicle weight is the primary determinant of quarter mile time'    = 'option_2',
+    'Regional design philosophies appear to emphasize different priorities'    = 'option_3',
+    'Newer vehicles universally outperform older ones' = 'option_4'
+  )
+)
+
+sd_question(
+  type  = "textarea",
+  id    = "q4_reason",
+  label = "What was your reasoning for that response?"
+)
+
+sd_question(
+  type  = 'mc',
+  id    = 'q5',
+  label = "Which statement best describes the relationship between MPG and quarter mile time in this dataset?",
+  option = c(
+    'Strong positive correlation'    = 'option_1',
+    'Strong negative correlation'    = 'option_2',
+    'Weak positive correlation'    = 'option_3',
+    'No clear linear relationship' = 'option_4'
+  )
+)
+
+sd_question(
+  type  = "textarea",
+  id    = "q5_reason",
+  label = "What was your reasoning for that response?"
+)
+
+sd_question(
+  type  = 'mc',
+  id    = 'q6',
+  label = "What trade-off is most clearly demonstrated across both plots?",
+  option = c(
+    'Weight vs. quarter mile time'    = 'option_1',
+    'Horsepower vs. regional origin'    = 'option_2',
+    'Fuel efficiency vs. performance capability'    = 'option_3',
+    'Weight vs. regional preference' = 'option_4'
+  )
+)
+
+sd_question(
+  type  = "textarea",
+  id    = "q6_reason",
+  label = "What was your reasoning for that response?"
+)
+
+```
+
+:::
+
+::: {.g-col-5}
+
+# Right Side
+
+
+```{r}
+sd_question(
+  type  = 'mc',
+  id    = 'q0_2',
+  label = "How comfortable are you with using visualizations as a form of information sharing?",
+  option = c(
+    'Very uncomfortable - I find visualizations confusing and much prefer receiving information through text or verbal explanations'   = 'option_1',
+    'Somewhat uncomfortable - I can understand basic charts but often struggle to interpret more complex visualizations or extract key insights from them'   = 'option_2',
+    'Moderately comfortable - I\'m fine with standard visualizations like bar charts and line graphs, but complex or interactive visualizations can be overwhelming'  = 'option_3',
+    'Quite comfortable - I can easily interpret most types of visualizations and often find them more effective than text for understanding data and trends' = 'option_4',
+    'Extremely comfortable - I love working with visualizations of all types. I find them intuitive, can quickly extract insights from complex charts, and prefer visual information over text when possible' = 'option_5'
+  )
+)
+
+sd_question(
+  type  = 'select',
+  id    = 'scatter_color',
+  label = "Color scatter plot by:",
+  option = c(
+    'None' = 'none',
+    'Day' = 'day',
+    'Time' = 'time',
+    'Sex' = 'sex',
+    'Smoker' = 'smoker',
+    'Size' = 'size'
+  )
+)
+
+```
+
+
+```{r}
+ # 📊 Scatter plot
+plotlyOutput("scatterplot")
+```
+
+
+:::
+
+
+:::
+
+:::
