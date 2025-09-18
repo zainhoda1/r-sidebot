@@ -1,0 +1,17 @@
+/*-- scss:rules --*/
+
+
+/* Alternative: If you need the dashboard to remain fixed,
+   add top margin to push content down */
+
+.dashboard {
+  width: 800px;
+  position: fixed;
+  top: 20px;
+  z-index: 1000;
+}
+
+body {
+  margin-top: 500px; /* Adjust this value based on your dashboard height */
+}
+

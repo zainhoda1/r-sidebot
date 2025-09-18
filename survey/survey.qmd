@@ -20,7 +20,10 @@ library(plotly)
 
 
 
+
 ::: {.sd_page id=welcome}
+
+::: {.column-screen-inset}
 
 ::: {.grid}
 
@@ -300,4 +303,5 @@ plotlyOutput("scatterplot")
 
 :::
 
+:::
 :::
