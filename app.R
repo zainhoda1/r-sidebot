@@ -9,7 +9,7 @@ library(ggridges)
 library(dplyr)
 library(querychat)
 
-tips <- readr::read_csv(here("tips.csv")) |>
+tips <- readr::read_csv(here("data", "tips.csv")) |>
   mutate(percent = round((tip / total_bill) * 100, 2))
 
 querychat_handle <- querychat_init(
@@ -20,6 +20,13 @@ querychat_handle <- querychat_init(
 )
 
 icon_explain <- tags$img(src = "stars.svg")
+
+default_plot_code <- 'ggplot(df, aes(x = percent, y = day, fill = day)) +
+  geom_density_ridges(scale = 3, rel_min_height = 0.01, alpha = 0.6) +
+  scale_fill_viridis_d() +
+  theme_ridges() +
+  labs(x = "Tip %", y = NULL, title = "Tip Percentages by Day") +
+  theme(legend.position = "none")'
 
 ui <- page_sidebar(
   style = "background-color: rgb(248, 248, 248);",
@@ -33,35 +40,11 @@ ui <- page_sidebar(
   verbatimTextOutput("show_query") |>
     tagAppendAttributes(style = "max-height: 100px; overflow: auto;"),
 
-  # 🎯 Value boxes
-  layout_columns(
-    fill = FALSE,
-    value_box(
-      showcase = fa_i("user"),
-      "Total tippers",
-      textOutput("total_tippers", inline = TRUE)
-    ),
-    value_box(
-      showcase = fa_i("wallet"),
-      "Average tips",
-      textOutput("average_tip", inline = TRUE)
-    ),
-    value_box(
-      showcase = fa_i("dollar-sign"),
-      "Average bill",
-      textOutput("average_bill", inline = TRUE)
-    ),
-  ),
+
   layout_columns(
     style = "min-height: 450px;",
     col_widths = c(6, 6, 12),
 
-    # 🔍 Data table
-    card(
-      style = "height: 500px;",
-      card_header("Tips data"),
-      reactableOutput("table", height = "100%")
-    ),
 
     # 📊 Scatter plot
     card(
@@ -91,33 +74,36 @@ ui <- page_sidebar(
       plotlyOutput("scatterplot")
     ),
 
-    # 📊 Ridge plot
+    # 📊 Custom plot
     card(
       card_header(
         class = "d-flex justify-content-between align-items-center",
-        "Tip percentages",
+        "Custom plot",
         span(
           actionLink(
-            "interpret_ridge",
+            "interpret_custom",
             icon_explain,
             class = "me-3 text-decoration-none",
-            aria_label = "Explain ridgeplot"
+            aria_label = "Explain custom plot"
           ),
-          popover(
-            title = "Split ridgeplot",
-            placement = "top",
-            fa_i("ellipsis"),
-            radioButtons(
-              "tip_perc_y",
-              "Split by",
-              c("sex", "smoker", "day", "time"),
-              "day",
-              inline = TRUE
-            )
+          actionButton(
+            "run_custom",
+            "Run",
+            class = "btn btn-sm btn-primary"
           )
         )
       ),
-      plotOutput("tip_perc")
+      tags$div(
+        style = "padding: 0 1rem;",
+        textAreaInput(
+          "custom_code",
+          tags$span("R code — use ", tags$code("df"), " for the current dataset"),
+          value = default_plot_code,
+          rows = 6,
+          width = "100%"
+        )
+      ),
+      plotOutput("custom_plot")
     ),
   )
 )
@@ -148,27 +134,9 @@ server <- function(input, output, session) {
     querychat$sql()
   })
 
-  # 🎯 Value box outputs -----------------------------------------------------
 
-  output$total_tippers <- renderText({
-    nrow(tips_data())
-  })
 
-  output$average_tip <- renderText({
-    x <- mean(tips_data()$tip / tips_data()$total_bill) * 100
-    paste0(formatC(x, format = "f", digits = 1, big.mark = ","), "%")
-  })
 
-  output$average_bill <- renderText({
-    x <- mean(tips_data()$total_bill)
-    paste0("$", formatC(x, format = "f", digits = 2, big.mark = ","))
-  })
-
-  # 🔍 Data table ------------------------------------------------------------
-
-  output$table <- renderReactable({
-    reactable(tips_data(), pagination = FALSE, compact = TRUE)
-  })
 
   # 📊 Scatter plot ----------------------------------------------------------
 
@@ -220,30 +188,37 @@ server <- function(input, output, session) {
     explain_plot(chat, scatterplot(), .ctx = ctx)
   })
 
-  # 📊 Ridge plot ------------------------------------------------------------
+  # 📊 Custom plot -----------------------------------------------------------
 
-  tip_perc <- reactive({
+  # Holds the last successfully submitted code; starts with the default
+  plot_code <- reactiveVal(default_plot_code)
+
+  observeEvent(input$run_custom, {
+    plot_code(input$custom_code)
+  })
+
+  custom_plot <- reactive({
     req(nrow(tips_data()) > 0)
-
-    df <- tips_data() |> mutate(percent = tip / total_bill)
-
-    ggplot(
-      df,
-      aes_string(x = "percent", y = input$tip_perc_y, fill = input$tip_perc_y)
-    ) +
-      geom_density_ridges(scale = 3, rel_min_height = 0.01, alpha = 0.6) +
-      scale_fill_viridis_d() +
-      theme_ridges() +
-      labs(x = "Percent", y = NULL, title = "Tip Percentages by Day") +
-      theme(legend.position = "none")
+    df <- tips_data()
+    env <- new.env(parent = globalenv())
+    env$df <- df
+    tryCatch(
+      eval(parse(text = plot_code()), envir = env),
+      error = function(e) {
+        ggplot() +
+          annotate("text", x = 0.5, y = 0.5, label = paste("Error:", e$message),
+                   size = 4, color = "red") +
+          theme_void()
+      }
+    )
   })
 
-  output$tip_perc <- renderPlot({
-    tip_perc()
+  output$custom_plot <- renderPlot({
+    custom_plot()
   })
 
-  observeEvent(input$interpret_ridge, {
-    explain_plot(chat, tip_perc(), .ctx = ctx)
+  observeEvent(input$interpret_custom, {
+    explain_plot(chat, custom_plot(), .ctx = ctx)
   })
 }
 

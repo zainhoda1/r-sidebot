@@ -1,0 +1,44 @@
+/*-- scss:rules --*/
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 250px;
+  height: 100vh;
+  background-color: #f8f9fa;
+  border-right: 1px solid #dee2e6;
+  padding: 20px;
+  z-index: 1000;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.main-content {
+  margin-left: 270px; /* Sidebar width + some margin */
+  padding: 20px;
+}
+
+.dashboard {
+  width: 100%;
+  max-width: 800px;
+}
+
+/* Style the dropdown in sidebar */
+.sidebar .form-group {
+  margin-bottom: 20px;
+}
+
+.sidebar label {
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.sidebar select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  background-color: white;
+}

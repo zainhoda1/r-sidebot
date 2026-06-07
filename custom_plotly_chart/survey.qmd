@@ -1,0 +1,58 @@
+---
+# General Settings
+format: html
+echo: false
+warning: false
+
+# Theme Settings
+theme: default
+barposition: top
+footer-left: "Made with [surveydown](https://surveydown.org)"
+footer-right: '[<i class="bi bi-github"></i> Source Code](https://github.com/surveydown-dev/templates)'
+
+# Survey Settings
+use-cookies: false
+auto-scroll: false
+rate-survey: false
+system-language: en
+highlight-unanswered: true
+highlight-color: blue
+capture-metadata: true
+all-questions-required: false
+required-questions:
+  - point_selection
+---
+
+```{r}
+library(surveydown)
+```
+
+::: {.sd_page id=plotly_chart}
+
+# Template - Custom Plotly Chart
+
+```{r}
+#| out.width: "100%"
+
+sd_output("point_selection", type = "question")
+```
+
+### You selected: `r sd_output("point_selection", type = "value")`
+
+```{r}
+sd_next()
+```
+
+:::
+
+::: {.sd_page id=end}
+
+## End
+
+This it the last page in the survey.
+
+```{r}
+sd_close("Exit Survey")
+```
+
+:::
