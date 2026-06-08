@@ -3,76 +3,81 @@ library(bslib)
 library(fontawesome)
 library(reactable)
 library(here)
-library(plotly)
 library(ggplot2)
 library(ggridges)
 library(dplyr)
-library(querychat)
+library(ellmer)
+library(shinychat)
+library(surveydown)
 
-tips <- readr::read_csv(here("data", "tips.csv")) |>
-  mutate(percent = round((tip / total_bill) * 100, 2))
+dragons <- readr::read_csv(here("data", "dragons.csv"))
 
-querychat_handle <- querychat_init(
-  tips,
-  # This is the greeting that should initially appear in the sidebar when the app
-  # loads.
-  greeting = readLines(here("greeting.md"), warn = FALSE)
-)
+system_prompt <- paste(readLines(here("prompt.md"), warn = FALSE), collapse = "\n")
 
 icon_explain <- tags$img(src = "stars.svg")
 
-default_plot_code <- 'ggplot(df, aes(x = percent, y = day, fill = day)) +
+default_plot_code <- 'ggplot(df, aes(x = flying_speed_kmh, y = dragon_type, fill = dragon_type)) +
   geom_density_ridges(scale = 3, rel_min_height = 0.01, alpha = 0.6) +
   scale_fill_viridis_d() +
   theme_ridges() +
-  labs(x = "Tip %", y = NULL, title = "Tip Percentages by Day") +
+  labs(x = "Flying Speed (km/h)", y = NULL, title = "Flying Speed by Dragon Type") +
   theme(legend.position = "none")'
 
 ui <- page_sidebar(
   style = "background-color: rgb(248, 248, 248);",
-  title = "Restaurant tipping",
+  title = "Dragon Explorer",
   includeCSS(here("styles.css")),
-  sidebar = querychat_sidebar("chat"),
+  sidebar = sidebar(
+    chat_ui("chat")
+  ),
   useBusyIndicators(),
-
-  # 🏷️ Header
-  textOutput("show_title", container = h3),
-  verbatimTextOutput("show_query") |>
-    tagAppendAttributes(style = "max-height: 100px; overflow: auto;"),
-
 
   layout_columns(
     style = "min-height: 450px;",
-    col_widths = c(6, 6, 12),
+    col_widths = c(12),
 
 
-    # 📊 Scatter plot
-    card(
-      card_header(
-        class = "d-flex justify-content-between align-items-center",
-        "Total bill vs tip",
-        span(
-          actionLink(
-            "interpret_scatter",
-            icon_explain,
-            class = "me-3 text-decoration-none",
-            aria_label = "Explain scatter plot"
-          ),
-          popover(
-            title = "Add a color variable",
-            placement = "top",
-            fa_i("ellipsis"),
-            radioButtons(
-              "scatter_color",
-              NULL,
-              c("none", "sex", "smoker", "day", "time"),
-              inline = TRUE
-            )
-          )
-        )
-      ),
-      plotlyOutput("scatterplot")
-    ),
+    # 📋 Survey questions (disabled)
+    # card(
+    #   card_header("Survey Questions"),
+    #   style = "overflow-y: auto;",
+    #   sd_question(
+    #     type = "mc",
+    #     id = "q1",
+    #     label = "Q1: Which dragon type has the highest average flying speed?",
+    #     option = c("Forest", "Mountain", "Sea", "All same")
+    #   ),
+    #   sd_question(
+    #     type = "mc",
+    #     id = "q2",
+    #     label = "Q2: Across all dragon types combined, how are weight and flying speed related?",
+    #     option = c("Positively related", "Negatively related", "No relation", "Cannot determine from the data")
+    #   ),
+    #   sd_question(
+    #     type = "mc",
+    #     id = "q3",
+    #     label = "Q3: Which dragon type has the largest average wingspan?",
+    #     option = c("Forest", "Mountain", "Sea", "All same")
+    #   ),
+    #   sd_question(
+    #     type = "mc",
+    #     id = "q4",
+    #     label = "Q4: When filtering to a single dragon type, how does wingspan relate to flying speed?",
+    #     option = c("Positively related", "Negatively related", "No relation", "Cannot determine from the data")
+    #   ),
+    #   sd_question(
+    #     type = "mc",
+    #     id = "q5",
+    #     label = "Q5: When all dragon types are shown together, how does wingspan relate to flying speed?",
+    #     option = c("Positively related", "Negatively related", "No relation", "Cannot determine from the data")
+    #   ),
+    #   sd_question(
+    #     type = "mc",
+    #     id = "q6",
+    #     label = "Q6: At the same claw length, which dragon type tends to have a larger wingspan — Mountain Dragons or Sea Dragons?",
+    #     option = c("Mountain Dragon", "Sea Dragon", "Both will have same wingspan", "Cannot determine from the data")
+    #   )
+    # ),
 
     # 📊 Custom plot
     card(
@@ -109,84 +114,28 @@ ui <- page_sidebar(
 )
 
 server <- function(input, output, session) {
-  # ✨ querychat ✨ -----------------------------------------------------------
+  # 💬 Chat ------------------------------------------------------------------
 
-  querychat <- querychat_server("chat", querychat_handle)
+  chat <- chat_claude(system_prompt = system_prompt)
 
-  # We don't normally need the chat object, but in this case, we want it so we
-  # can pass it to explain_plot
-  chat <- querychat$chat
-
-  # The reactive data frame. Either returns the entire dataset, or filtered by
-  # whatever querychat decided.
-  #
-  # querychat$df is already a reactive data frame, we're just creating an alias
-  # to it called `tips_data` so the code below can be more readable.
-  tips_data <- querychat$df
-
-  # 🏷️ Header outputs --------------------------------------------------------
-
-  output$show_title <- renderText({
-    querychat$title()
-  })
-
-  output$show_query <- renderText({
-    querychat$sql()
-  })
-
-
-
-
-
-  # 📊 Scatter plot ----------------------------------------------------------
-
-  scatterplot <- reactive({
-    req(nrow(tips_data()) > 0)
-
-    color <- input$scatter_color
-
-    data <- tips_data()
-
-    p <- plot_ly(
-      data,
-      x = ~total_bill,
-      y = ~tip,
-      type = "scatter",
-      mode = "markers"
+  # Show greeting on startup
+  session$onFlushed(function() {
+    chat_append(
+      "chat",
+      paste(readLines(here("greeting.md"), warn = FALSE), collapse = "\n")
     )
+  }, once = TRUE)
 
-    if (color != "none") {
-      p <- plot_ly(
-        data,
-        x = ~total_bill,
-        y = ~tip,
-        color = as.formula(paste0("~", color)),
-        type = "scatter",
-        mode = "markers"
-      )
-    }
-
-    p <- p |>
-      add_lines(
-        x = ~total_bill,
-        y = fitted(loess(tip ~ total_bill, data = data)),
-        line = list(color = "rgba(255, 0, 0, 0.5)"),
-        name = "LOESS",
-        inherit = FALSE
-      )
-
-    p <- p |> layout(showlegend = FALSE)
-
-    return(p)
+  observeEvent(input$chat_user_input, {
+    stream <- chat$stream_async(input$chat_user_input)
+    chat_append("chat", stream)
   })
 
-  output$scatterplot <- renderPlotly({
-    scatterplot()
-  })
+  dragons_data <- reactive(dragons)
 
-  observeEvent(input$interpret_scatter, {
-    explain_plot(chat, scatterplot(), .ctx = ctx)
-  })
+  # 📋 Survey (disabled) -----------------------------------------------------
+
+  # sd_server(db = NULL)
 
   # 📊 Custom plot -----------------------------------------------------------
 
@@ -198,8 +147,8 @@ server <- function(input, output, session) {
   })
 
   custom_plot <- reactive({
-    req(nrow(tips_data()) > 0)
-    df <- tips_data()
+    req(nrow(dragons_data()) > 0)
+    df <- dragons_data()
     env <- new.env(parent = globalenv())
     env$df <- df
     tryCatch(
@@ -218,7 +167,7 @@ server <- function(input, output, session) {
   })
 
   observeEvent(input$interpret_custom, {
-    explain_plot(chat, custom_plot(), .ctx = ctx)
+    explain_plot(chat, custom_plot())
   })
 }
 
