@@ -1,0 +1,225 @@
+# ! JUST READ - don't change the content of this file
+# Question structure extracted from survey.html
+education:
+  type: select
+  label: Choose X axis
+  options:
+    Acceleration: acc
+    Mass: mass
+    HorsePower: hp
+q0_1:
+  type: mc
+  label: How comfortable are you with using visualizations as a form of information
+    sharing?
+  options:
+    Very uncomfortable - I find visualizations confusing and much prefer receiving information through text or verbal explanations: option_1
+    ? Somewhat uncomfortable - I can understand basic charts but often struggle to
+      interpret more complex visualizations or extract key insights from them
+    : option_2
+    ? Moderately comfortable - I'm fine with standard visualizations like bar charts
+      and line graphs, but complex or interactive visualizations can be overwhelming
+    : option_3
+    ? Quite comfortable - I can easily interpret most types of visualizations and
+      often find them more effective than text for understanding data and trends
+    : option_4
+    ? Extremely comfortable - I love working with visualizations of all types. I find
+      them intuitive, can quickly extract insights from complex charts, and prefer
+      visual information over text when possible
+    : option_5
+q0_2:
+  type: mc
+  label: How comfortable are you with using visualizations as a form of information
+    sharing?
+  options:
+    Very uncomfortable - I find visualizations confusing and much prefer receiving information through text or verbal explanations: option_1
+    ? Somewhat uncomfortable - I can understand basic charts but often struggle to
+      interpret more complex visualizations or extract key insights from them
+    : option_2
+    ? Moderately comfortable - I'm fine with standard visualizations like bar charts
+      and line graphs, but complex or interactive visualizations can be overwhelming
+    : option_3
+    ? Quite comfortable - I can easily interpret most types of visualizations and
+      often find them more effective than text for understanding data and trends
+    : option_4
+    ? Extremely comfortable - I love working with visualizations of all types. I find
+      them intuitive, can quickly extract insights from complex charts, and prefer
+      visual information over text when possible
+    : option_5
+q0_3:
+  type: mc
+  label: What do individual points on a scatter plot represent?
+  options:
+    Categories: option_1
+    Data records or observations: option_2
+    Statistical summaries: option_3
+    Totals per group: option_4
+q0_4:
+  type: mc
+  label: In a scatter plot, what does the size or color of points typically represent
+    (if used)?
+  options:
+    Axis value: option_1
+    Category grouping or a third variable: option_2
+    Random styling: option_3
+    Statistical error: option_4
+llm_preference:
+  type: matrix
+  label: How often do you use LLM’s for the following
+  options:
+    Never: option_1
+    Less than once a month: option_2
+    Monthly: option_3
+    Weekly: option_4
+    Daily: option_5
+  row:
+    Content Creation & Writing: CC
+    Content Enhancement & Editing: CE
+    Research & Information: RI
+    Technical & Programming: TP
+    Communication & Language: CL
+    Productivity & Organization: PO
+    Media & Analysis: MA
+llm_preference_CC:
+  type: mc
+  label: []
+  options:
+    Never: option_1
+    Less than once a month: option_2
+    Monthly: option_3
+    Weekly: option_4
+    Daily: option_5
+llm_preference_CE:
+  type: mc
+  label: []
+  options:
+    Never: option_1
+    Less than once a month: option_2
+    Monthly: option_3
+    Weekly: option_4
+    Daily: option_5
+llm_preference_RI:
+  type: mc
+  label: []
+  options:
+    Never: option_1
+    Less than once a month: option_2
+    Monthly: option_3
+    Weekly: option_4
+    Daily: option_5
+llm_preference_TP:
+  type: mc
+  label: []
+  options:
+    Never: option_1
+    Less than once a month: option_2
+    Monthly: option_3
+    Weekly: option_4
+    Daily: option_5
+llm_preference_CL:
+  type: mc
+  label: []
+  options:
+    Never: option_1
+    Less than once a month: option_2
+    Monthly: option_3
+    Weekly: option_4
+    Daily: option_5
+llm_preference_PO:
+  type: mc
+  label: []
+  options:
+    Never: option_1
+    Less than once a month: option_2
+    Monthly: option_3
+    Weekly: option_4
+    Daily: option_5
+llm_preference_MA:
+  type: mc
+  label: []
+  options:
+    Never: option_1
+    Less than once a month: option_2
+    Monthly: option_3
+    Weekly: option_4
+    Daily: option_5
+unique_id:
+  type: text
+  label: Enter the Unique Key you see on the dashboard
+q1:
+  type: mc
+  label: Which region appears to specialize in high-performance, low-efficiency vehicles?
+  options:
+    European manufacturers: European
+    Japanese manufacturers: Japanese
+    US manufacturers: US
+    All regions are similar: All
+q1_reason:
+  type: unknown
+  label: What was your reasoning for that response?
+q2:
+  type: mc
+  label: 'Japanese vehicles in this dataset are characterized by:'
+  options:
+    High horsepower and low MPG: option_1
+    High horsepower and high MPG: option_2
+    Low horsepower and low MPG: option_3
+    Low horsepower and high MPG: option_4
+q2_reason:
+  type: unknown
+  label: What was your reasoning for that response?
+q3:
+  type: mc
+  label: Which region shows the greatest diversity in horsepower ratings?
+  options:
+    Europe: option_1
+    Japan: option_2
+    US: option_3
+    All regions show similar diversity: option_4
+q3_reason:
+  type: unknown
+  label: What was your reasoning for that response?
+q4:
+  type: mc
+  label: Based on the plot, which statement is most accurate?
+  options:
+    Higher fuel efficiency always comes at the cost of performance: option_1
+    Vehicle weight is the primary determinant of quarter mile time: option_2
+    Regional design philosophies appear to emphasize different priorities: option_3
+    Newer vehicles universally outperform older ones: option_4
+q4_reason:
+  type: unknown
+  label: What was your reasoning for that response?
+q5:
+  type: mc
+  label: Which statement best describes the relationship between MPG and quarter mile
+    time in this dataset?
+  options:
+    Strong positive correlation: option_1
+    Strong negative correlation: option_2
+    Weak positive correlation: option_3
+    No clear linear relationship: option_4
+q5_reason:
+  type: unknown
+  label: What was your reasoning for that response?
+q6:
+  type: mc
+  label: What trade-off is most clearly demonstrated across both plots?
+  options:
+    Weight vs. quarter mile time: option_1
+    Horsepower vs. regional origin: option_2
+    Fuel efficiency vs. performance capability: option_3
+    Weight vs. regional preference: option_4
+q6_reason:
+  type: unknown
+  label: What was your reasoning for that response?
+scatter_color:
+  type: select
+  label: 'Color scatter plot by:'
+  options:
+    None: none
+    Day: day
+    Time: time
+    Sex: sex
+    Smoker: smoker
+    Size: size
+

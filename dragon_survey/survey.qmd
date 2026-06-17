@@ -1,0 +1,162 @@
+---
+theme-settings:
+  theme: default
+  barposition: top
+  footer-left: "Dragon Dashboard Survey"
+
+survey-settings:
+  show-previous: true
+  use-cookies: false
+  auto-scroll: false
+  rate-survey: false
+  system-language: en
+  highlight-unanswered: true
+  highlight-color: blue
+  capture-metadata: true
+  all-required: true
+---
+
+```{r}
+library(surveydown)
+```
+
+```{r}
+htmltools::tags$script(htmltools::HTML('
+  (function() {
+    var mouseBuffer = [];
+
+    document.addEventListener("mousemove", function(e) {
+      mouseBuffer.push({
+        x: e.clientX,
+        y: e.clientY,
+        wx: window.innerWidth,
+        wy: window.innerHeight,
+        t: Date.now(),
+        pg: (typeof Shiny !== "undefined" && Shiny.shinyapp &&
+             Shiny.shinyapp.$inputValues &&
+             Shiny.shinyapp.$inputValues["sd_current_page"]) || ""
+      });
+    });
+
+    setInterval(function() {
+      if (mouseBuffer.length > 0 &&
+          typeof Shiny !== "undefined" && Shiny.setInputValue) {
+        var toSend = mouseBuffer.splice(0);
+        try {
+          Shiny.setInputValue("mouse_track", { events: toSend }, { priority: "event" });
+        } catch(e) {
+          mouseBuffer = toSend.concat(mouseBuffer);
+        }
+      }
+    }, 500);
+  })();
+'))
+```
+
+--- welcome
+
+# Dragon Dashboard Survey
+
+Welcome! This survey asks you to explore the dragon dashboard and answer questions based on what you observe. Use the dashboard controls to filter by dragon type and explore the data before answering each question.
+
+```{r}
+sd_next(label = "Start Survey")
+```
+
+--- questions
+
+# Questions
+
+Use the dragon dashboard to answer the following questions.
+
+```{r}
+sd_question(
+  id     = "q1_flying_speed",
+  type   = "mc",
+  label  = "Q1. Which dragon type has the highest average flying speed?",
+  option = c(
+    "Forest"   = "forest",
+    "Mountain" = "mountain",
+    "Sea"      = "sea",
+    "All same" = "all_same"
+  )
+)
+```
+
+```{r}
+sd_question(
+  id     = "q2_weight_speed",
+  type   = "mc",
+  label  = "Q2. Across all dragon types combined, how are weight and flying speed related?",
+  option = c(
+    "Positively related"            = "positive",
+    "Negatively related"            = "negative",
+    "No relation"                   = "no_relation",
+    "Cannot determine from the data" = "cannot_determine"
+  )
+)
+```
+
+```{r}
+sd_question(
+  id     = "q3_wingspan",
+  type   = "mc",
+  label  = "Q3. Which dragon type has the largest average wingspan?",
+  option = c(
+    "Forest"   = "forest",
+    "Mountain" = "mountain",
+    "Sea"      = "sea",
+    "All same" = "all_same"
+  )
+)
+```
+
+```{r}
+sd_question(
+  id     = "q4_wingspan_speed_single",
+  type   = "mc",
+  label  = "Q4. When filtering to a single dragon type, how does wingspan relate to flying speed?",
+  option = c(
+    "Positively related"            = "positive",
+    "Negatively related"            = "negative",
+    "No relation"                   = "no_relation",
+    "Cannot determine from the data" = "cannot_determine"
+  )
+)
+```
+
+```{r}
+sd_question(
+  id     = "q5_wingspan_speed_all",
+  type   = "mc",
+  label  = "Q5. When all dragon types are shown together, how does wingspan relate to flying speed?",
+  option = c(
+    "Positively related"            = "positive",
+    "Negatively related"            = "negative",
+    "No relation"                   = "no_relation",
+    "Cannot determine from the data" = "cannot_determine"
+  )
+)
+```
+
+```{r}
+sd_question(
+  id     = "q6_claw_wingspan",
+  type   = "mc",
+  label  = "Q6. At the same claw length, which dragon type tends to have a larger wingspan — Mountain Dragons or Sea Dragons?",
+  option = c(
+    "Mountain Dragon"               = "mountain",
+    "Sea Dragon"                    = "sea",
+    "Both will have same wingspan"  = "same",
+    "Cannot determine from the data" = "cannot_determine"
+  )
+)
+```
+
+--- end
+
+## Thank you for completing the survey!
+
+```{r}
+sd_close()
+```

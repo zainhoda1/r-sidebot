@@ -1,0 +1,54 @@
+# ! JUST READ - don't change the content of this file
+# Question structure extracted from survey.html
+q1_flying_speed:
+  type: mc
+  label: Q1. Which dragon type has the highest average flying speed?
+  options:
+    Forest: forest
+    Mountain: mountain
+    Sea: sea
+    All same: all_same
+q2_weight_speed:
+  type: mc
+  label: Q2. Across all dragon types combined, how are weight and flying speed related?
+  options:
+    Positively related: positive
+    Negatively related: negative
+    No relation: no_relation
+    Cannot determine from the data: cannot_determine
+q3_wingspan:
+  type: mc
+  label: Q3. Which dragon type has the largest average wingspan?
+  options:
+    Forest: forest
+    Mountain: mountain
+    Sea: sea
+    All same: all_same
+q4_wingspan_speed_single:
+  type: mc
+  label: Q4. When filtering to a single dragon type, how does wingspan relate to flying
+    speed?
+  options:
+    Positively related: positive
+    Negatively related: negative
+    No relation: no_relation
+    Cannot determine from the data: cannot_determine
+q5_wingspan_speed_all:
+  type: mc
+  label: Q5. When all dragon types are shown together, how does wingspan relate to
+    flying speed?
+  options:
+    Positively related: positive
+    Negatively related: negative
+    No relation: no_relation
+    Cannot determine from the data: cannot_determine
+q6_claw_wingspan:
+  type: mc
+  label: Q6. At the same claw length, which dragon type tends to have a larger wingspan
+    — Mountain Dragons or Sea Dragons?
+  options:
+    Mountain Dragon: mountain
+    Sea Dragon: sea
+    Both will have same wingspan: same
+    Cannot determine from the data: cannot_determine
+

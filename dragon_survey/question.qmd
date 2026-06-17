@@ -1,0 +1,38 @@
+---
+title: "Questions"
+author: "Zain Hoda"
+date: "June 5, 2026"
+format: 
+  html:
+    toc: true
+    theme: cosmo
+---
+
+## Introduction
+Listing the questions that can be asked from the dataset which would require the respondents to toggle the settings in the dashboard.
+
+## Questions
+
+Q1 Which dragon type has the highest average flying speed?
+
+Answer: Pick one option from 4 (Forest, Mountain, Sea, All same)
+
+Q2 Across all dragon types combined, how are weight and flying speed related?
+
+Answer: Pick one option (positively related, negatively related, no relation, cannot determine from the data)
+
+Q3 Which dragon type has the largest average wingspan?
+
+Answer: Pick one option from 4 (Forest, Mountain, Sea, All same)
+
+Q4 When filtering to a single dragon type, how does wingspan relate to flying speed?
+
+Answer: Pick one option (positively related, negatively related, no relation, cannot determine from the data)
+
+Q5 When all dragon types are shown together, how does wingspan relate to flying speed?
+
+Answer: Pick one option (positively related, negatively related, no relation, cannot determine from the data)
+
+Q6 At the same claw length, which dragon type tends to have a larger wingspan — Mountain Dragons or Sea Dragons?
+
+Answer: Pick one option (Mountain Dragon, Sea Dragon, Both will have same wingspan, Cannot determine from the data)

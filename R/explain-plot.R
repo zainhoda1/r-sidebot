@@ -1,4 +1,6 @@
 library(ggplot2)
+library(promises)
+library(here)
 
 #' Convert a plot object to a PNG data URI
 #'
@@ -64,15 +66,20 @@ explain_plot <- function(
   )
 
   session$onFlushed(function() {
-    stream <- chat$stream_async(
-      "Interpret this plot, which is based on the current state of the data (i.e. with filtering applied, if any). Try to make specific observations if you can, but be conservative in drawing firm conclusions and express uncertainty if you can't be confident.",
-      img_content
-    )
-    shinychat::chat_append(chat_id, stream)
+    user_msg <- "Interpret this plot, which is based on the current state of the data (i.e. with filtering applied, if any). Try to make specific observations if you can, but be conservative in drawing firm conclusions. Keep it brief, not more than 3-4 lines"
+    log_query(user_msg, context = "explain_plot")
+    stream <- chat$stream_async(user_msg, img_content)
+    shinychat::chat_append(chat_id, stream) %...>%
+      (function(...) log_exchange(user_msg, chat$last_turn()@text, context = "explain_plot")) %...!%
+      (function(e) warning("explain_plot stream error: ", conditionMessage(e)))
   })
 
   observeEvent(session$input[[paste0(chat_id, "_user_input")]], {
-    stream <- chat$stream_async(session$input[[paste0(chat_id, "_user_input")]])
-    shinychat::chat_append(chat_id, stream)
+    user_msg <- session$input[[paste0(chat_id, "_user_input")]]
+    log_query(user_msg, context = "explain_plot")
+    stream <- chat$stream_async(user_msg)
+    shinychat::chat_append(chat_id, stream) %...>%
+      (function(...) log_exchange(user_msg, chat$last_turn()@text, context = "explain_plot")) %...!%
+      (function(e) warning("explain_plot stream error: ", conditionMessage(e)))
   })
 }

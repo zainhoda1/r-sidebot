@@ -1,0 +1,44 @@
+# ! JUST READ - don't change the content of this file
+# All survey configuration settings with final resolved values
+
+theme-settings:
+  theme: default
+  barposition: top
+  barcolor: ~
+  footer-left: Made with [surveydown](https://surveydown.org)
+  footer-center: ''
+  footer-right: '[<i class="bi bi-github"></i> Source Code](https://github.com/surveydown-dev/templates)'
+
+survey-settings:
+  show-previous: no
+  use-cookies: no
+  auto-scroll: no
+  rate-survey: no
+  all-questions-required: no
+  start-page: welcome
+  system-language: en
+  highlight-unanswered: yes
+  highlight-color: gray
+  capture-metadata: yes
+  required-questions: []
+
+system-messages:
+  cancel: Cancel
+  confirm-exit: Confirm Exit
+  sure-exit: Are you sure you want to exit the survey?
+  submit-exit: Submit and Exit
+  warning: Warning
+  required: Please answer all required questions before proceeding.
+  rating-title: Before you go...
+  rating-text: 'Rate your survey experience:'
+  rating-scale: from 1-poor to 5-excellent
+  previous: Previous
+  next: Next
+  exit: Exit Survey
+  close-tab: Please close this tab manually to exit the survey.
+  choose-option: Choose an option...
+  click: Click here
+  redirect: Redirecting in
+  seconds: seconds
+  new-tab: Opens in a new tab
+  redirect-error: "Error: This text won't trigger any redirection..."

@@ -10,6 +10,8 @@ library(ellmer)
 library(shinychat)
 library(surveydown)
 
+source(here::here("R", "log_exchange.R"))
+
 dragons <- readr::read_csv(here("data", "dragons.csv"))
 
 system_prompt <- paste(readLines(here("prompt.md"), warn = FALSE), collapse = "\n")
@@ -34,50 +36,8 @@ ui <- page_sidebar(
 
   layout_columns(
     style = "min-height: 450px;",
-    col_widths = c(12),
+    col_widths = c(16),
 
-
-    # 📋 Survey questions (disabled)
-    # card(
-    #   card_header("Survey Questions"),
-    #   style = "overflow-y: auto;",
-    #   sd_question(
-    #     type = "mc",
-    #     id = "q1",
-    #     label = "Q1: Which dragon type has the highest average flying speed?",
-    #     option = c("Forest", "Mountain", "Sea", "All same")
-    #   ),
-    #   sd_question(
-    #     type = "mc",
-    #     id = "q2",
-    #     label = "Q2: Across all dragon types combined, how are weight and flying speed related?",
-    #     option = c("Positively related", "Negatively related", "No relation", "Cannot determine from the data")
-    #   ),
-    #   sd_question(
-    #     type = "mc",
-    #     id = "q3",
-    #     label = "Q3: Which dragon type has the largest average wingspan?",
-    #     option = c("Forest", "Mountain", "Sea", "All same")
-    #   ),
-    #   sd_question(
-    #     type = "mc",
-    #     id = "q4",
-    #     label = "Q4: When filtering to a single dragon type, how does wingspan relate to flying speed?",
-    #     option = c("Positively related", "Negatively related", "No relation", "Cannot determine from the data")
-    #   ),
-    #   sd_question(
-    #     type = "mc",
-    #     id = "q5",
-    #     label = "Q5: When all dragon types are shown together, how does wingspan relate to flying speed?",
-    #     option = c("Positively related", "Negatively related", "No relation", "Cannot determine from the data")
-    #   ),
-    #   sd_question(
-    #     type = "mc",
-    #     id = "q6",
-    #     label = "Q6: At the same claw length, which dragon type tends to have a larger wingspan — Mountain Dragons or Sea Dragons?",
-    #     option = c("Mountain Dragon", "Sea Dragon", "Both will have same wingspan", "Cannot determine from the data")
-    #   )
-    # ),
 
     # 📊 Custom plot
     card(
@@ -116,7 +76,7 @@ ui <- page_sidebar(
 server <- function(input, output, session) {
   # 💬 Chat ------------------------------------------------------------------
 
-  chat <- chat_claude(system_prompt = system_prompt)
+  chat <- chat_claude(system_prompt = system_prompt, model = "claude-sonnet-4-6")
 
   # Show greeting on startup
   session$onFlushed(function() {
@@ -127,8 +87,12 @@ server <- function(input, output, session) {
   }, once = TRUE)
 
   observeEvent(input$chat_user_input, {
-    stream <- chat$stream_async(input$chat_user_input)
-    chat_append("chat", stream)
+    user_msg <- input$chat_user_input
+    log_query(user_msg)
+    stream <- chat$stream_async(user_msg)
+    chat_append("chat", stream) %...>%
+      (function(...) log_exchange(user_msg, chat$last_turn()@text)) %...!%
+      (function(e) warning("chat stream error: ", conditionMessage(e)))
   })
 
   dragons_data <- reactive(dragons)

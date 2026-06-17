@@ -1,0 +1,28 @@
+---
+format: html
+page-layout: full
+echo: false
+warning: false
+footer-left: "Made with [surveydown](https://surveydown.org)"
+footer-right: '[<i class="bi bi-github"></i> Source Code](https://github.com/surveydown-dev/templates)'
+---
+
+```{r}
+library(surveydown)
+library(here)
+library(plotly)
+```
+
+::: {.sd_page id=welcome}
+
+::: {.container-fluid}
+::: {.row style="height: 66.33%"}
+This row takes 1/3 of the container height
+:::
+
+::: {.row style="height: 33.67%"}  
+This row takes 2/3 of the container height
+:::
+:::
+
+:::
