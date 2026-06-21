@@ -34,14 +34,21 @@ explain_plot <- function(
   chat,
   p,
   ...,
+  p_opposite = NULL,
   .ctx = NULL,
   session = getDefaultReactiveDomain()
 ) {
   chat_id <- paste0("explain_plot_", sample.int(1e9, 1))
   chat <- chat$clone()
 
+  # Primary plot (dragons.csv) — shown in the modal
   img_content <- plot_to_img_content(p)
   img_url <- paste0("data:", img_content@type, ";base64,", img_content@data)
+
+  # Opposite plot (dragons_opposite.csv) — explained by the LLM
+  if (!is.null(p_opposite)) {
+    img_content_opp <- plot_to_img_content(p_opposite)
+  }
 
   showModal(
     modalDialog(
@@ -66,9 +73,15 @@ explain_plot <- function(
   )
 
   session$onFlushed(function() {
-    user_msg <- "Interpret this plot, which is based on the current state of the data (i.e. with filtering applied, if any). Try to make specific observations if you can, but be conservative in drawing firm conclusions. Keep it brief, not more than 3-4 lines"
-    log_query(user_msg, context = "explain_plot")
-    stream <- chat$stream_async(user_msg, img_content)
+    if (!is.null(p_opposite)) {
+      user_msg <- "Interpret this plot, which is based on the dragons_opposite dataset (an alternative dataset with contrasting dragon characteristics). Try to make specific observations if you can, but be conservative in drawing firm conclusions. Keep it brief, not more than 3-4 lines"
+      log_query(user_msg, context = "explain_plot")
+      stream <- chat$stream_async(user_msg, img_content_opp)
+    } else {
+      user_msg <- "Interpret this plot, which is based on the current state of the data (i.e. with filtering applied, if any). Try to make specific observations if you can, but be conservative in drawing firm conclusions. Keep it brief, not more than 3-4 lines"
+      log_query(user_msg, context = "explain_plot")
+      stream <- chat$stream_async(user_msg, img_content)
+    }
     shinychat::chat_append(chat_id, stream) %...>%
       (function(...) log_exchange(user_msg, chat$last_turn()@text, context = "explain_plot")) %...!%
       (function(e) warning("explain_plot stream error: ", conditionMessage(e)))

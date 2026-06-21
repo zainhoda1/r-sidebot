@@ -125,25 +125,13 @@ sd_question(
 )
 ```
 
-```{r}
-sd_question(
-  id     = "q5_wingspan_speed_all",
-  type   = "mc",
-  label  = "Q5. When all dragon types are shown together, how does wingspan relate to flying speed?",
-  option = c(
-    "Positively related"            = "positive",
-    "Negatively related"            = "negative",
-    "No relation"                   = "no_relation",
-    "Cannot determine from the data" = "cannot_determine"
-  )
-)
-```
+
 
 ```{r}
 sd_question(
-  id     = "q6_claw_wingspan",
+  id     = "q5_claw_wingspan",
   type   = "mc",
-  label  = "Q6. At the same claw length, which dragon type tends to have a larger wingspan — Mountain Dragons or Sea Dragons?",
+  label  = "Q5. At the same claw length, which dragon type tends to have a larger wingspan — Mountain Dragons or Sea Dragons?",
   option = c(
     "Mountain Dragon"               = "mountain",
     "Sea Dragon"                    = "sea",
