@@ -35,7 +35,7 @@ q4_wingspan_speed_single:
     Cannot determine from the data: cannot_determine
 q5_claw_wingspan:
   type: mc
-  label: Q6. At the same claw length, which dragon type tends to have a larger wingspan
+  label: Q5. At the same claw length, which dragon type tends to have a larger wingspan
     — Mountain Dragons or Sea Dragons?
   options:
     Mountain Dragon: mountain

@@ -40,7 +40,13 @@ ui <- page_sidebar(
   includeCSS(here("styles.css")),
   useBusyIndicators(),
   sidebar = sidebar(
-    chat_ui("chat")
+    chat_ui("chat"),
+    actionLink(
+      "interpret_custom",
+      tagList(icon_explain, " Explain plot"),
+      class = "text-decoration-none",
+      aria_label = "Explain custom plot"
+    )
   ),
   layout_columns(
     col_widths = c(7, 5),
@@ -50,18 +56,10 @@ ui <- page_sidebar(
       card_header(
         class = "d-flex justify-content-between align-items-center",
         "Custom plot",
-        span(
-          actionLink(
-            "interpret_custom",
-            icon_explain,
-            class = "me-3 text-decoration-none",
-            aria_label = "Explain custom plot"
-          ),
-          actionButton(
-            "run_custom",
-            "Run",
-            class = "btn btn-sm btn-primary"
-          )
+        actionButton(
+          "run_custom",
+          "Run",
+          class = "btn btn-sm btn-primary"
         )
       ),
       tags$div(
