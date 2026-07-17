@@ -49,7 +49,7 @@ ui <- page_sidebar(
     )
   ),
   layout_columns(
-    col_widths = c(7, 5),
+    col_widths = c(6, 6),
     # Left: Dashboard
     card(
       style = "min-height: 450px;",

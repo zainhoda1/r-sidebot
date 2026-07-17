@@ -1,0 +1,7 @@
+There should be three treatment groups:
+
+1) Chat with LLM explanation
+2) Manual dashboard without LLM explanation
+3) Manual dashboard with LLM explanation
+
+Perform a statistical power analysis to figure out how many participants would be needed. 

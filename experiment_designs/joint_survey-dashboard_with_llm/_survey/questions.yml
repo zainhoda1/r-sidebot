@@ -1,0 +1,63 @@
+# ! JUST READ - don't change the content of this file
+# Question structure extracted from survey.html
+q1_breeder:
+  type: mc
+  label: Q1. A dragon breeder wants to produce dragons that fly as fast as possible.
+    Based on the data, should they breed for larger or smaller wingspans?
+  options:
+    Larger wingspans: larger
+    Smaller wingspans: smaller
+    Wingspan doesn’t affect flying speed: no_effect
+    Cannot determine from the data: cannot_determine
+q1_confidence:
+  type: slider
+  label: How confident are you in your answer to Q1?
+  options:
+    '0': '0'
+    '1': '1'
+    '2': '2'
+    '3': '3'
+    '4': '4'
+    '5': '5'
+    '6': '6'
+    '7': '7'
+    '8': '8'
+    '9': '9'
+    '10': '10'
+q1_reasoning:
+  type: unknown
+  label: How did you decide on your answer to Q1? Please briefly describe your reasoning.
+q2_claw_wingspan:
+  type: mc
+  label: Q2. At the same claw length, which dragon type tends to have a larger wingspan
+    — Mountain Dragons or Sea Dragons?
+  options:
+    Mountain Dragon: mountain
+    Sea Dragon: sea
+    Both have the same wingspan: same
+    Cannot determine from the data: cannot_determine
+q3_flying_speed:
+  type: mc
+  label: Q3. Which dragon type has the highest average flying speed?
+  options:
+    Forest: forest
+    Mountain: mountain
+    Sea: sea
+    All the same: all_same
+q4_wingspan:
+  type: mc
+  label: Q4. Which dragon type has the largest average wingspan?
+  options:
+    Forest: forest
+    Mountain: mountain
+    Sea: sea
+    All the same: all_same
+q5_weight_speed:
+  type: mc
+  label: Q5. How are weight and flying speed related?
+  options:
+    Positively related: positive
+    Negatively related: negative
+    No relation: no_relation
+    Cannot determine from the data: cannot_determine
+
