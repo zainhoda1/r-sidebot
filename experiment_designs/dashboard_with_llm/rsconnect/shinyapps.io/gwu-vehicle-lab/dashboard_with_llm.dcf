@@ -1,0 +1,12 @@
+name: dashboard_with_llm
+title: dashboard_with_llm
+username: gwu-vehicle-lab
+account: gwu-vehicle-lab
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 17678352
+bundleId: 12382080
+url: https://gwu-vehicle-lab.shinyapps.io/dashboard_with_llm/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE

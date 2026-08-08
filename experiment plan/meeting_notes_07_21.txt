@@ -1,0 +1,38 @@
+Make positive correlation stronger.  for Q1
+
+For Q5 make it stronger as well
+
+For chat version, make it automatic.
+
+
+Chat about this plot.  What would you like to know?
+
+Manual  and Chat
+with explainer
+
+Making the chat interface more automatic.
+
+--------------------------------
+
+Framing change - control to AI progressively increasing. explain VS explain+control
+
+----------------------------------
+
+Make screen into 3 blocks, other details in mind.
+
+-----------------------------------
+
+try other LLM models for performance.
+
+-----------------------------------
+
+
+dodged positioning
+legend on the right
+map color to adoption.
+y axis range.
+
+
+
+
+

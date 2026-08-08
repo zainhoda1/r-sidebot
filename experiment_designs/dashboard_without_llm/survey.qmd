@@ -1,0 +1,267 @@
+---
+theme-settings:
+  theme: default
+  barposition: top
+  footer-left: "Dragon Dashboard Survey"
+
+survey-settings:
+  show-previous: true
+  use-cookies: false
+  auto-scroll: false
+  rate-survey: false
+  system-language: en
+  highlight-unanswered: true
+  highlight-color: blue
+  capture-metadata: true
+  all-required: true
+---
+
+```{r}
+library(surveydown)
+```
+
+```{r}
+htmltools::tags$script(htmltools::HTML('
+  (function() {
+    var mouseBuffer = [];
+
+    document.addEventListener("mousemove", function(e) {
+      mouseBuffer.push({
+        x: e.clientX,
+        y: e.clientY,
+        wx: window.innerWidth,
+        wy: window.innerHeight,
+        t: Date.now(),
+        pg: (typeof Shiny !== "undefined" && Shiny.shinyapp &&
+             Shiny.shinyapp.$inputValues &&
+             Shiny.shinyapp.$inputValues["sd_current_page"]) || ""
+      });
+    });
+
+    setInterval(function() {
+      if (mouseBuffer.length > 0 &&
+          typeof Shiny !== "undefined" && Shiny.setInputValue) {
+        var toSend = mouseBuffer.splice(0);
+        try {
+          Shiny.setInputValue("mouse_track", { events: toSend }, { priority: "event" });
+        } catch(e) {
+          mouseBuffer = toSend.concat(mouseBuffer);
+        }
+      }
+    }, 500);
+  })();
+'))
+```
+
+--- welcome
+
+# Dragon Dashboard Survey
+
+Welcome! This survey asks you to explore the dragon dashboard and answer questions based on what you observe. Use the dashboard controls to filter by dragon type and explore the data before answering each question.
+
+```{r}
+sd_next(label = "Start Survey")
+```
+
+--- questions
+
+# Questions
+
+Use the dragon dashboard to answer the following questions.
+
+```{r}
+sd_question(
+  id     = "q1_breeder",
+  type   = "mc",
+  label  = "Q1. A dragon breeder wants to produce dragons that fly as fast as possible. Based on the data, should they breed for larger or smaller wingspans?",
+  option = c(
+    "Larger wingspans"              = "larger",
+    "Smaller wingspans"             = "smaller",
+    "Wingspan doesn't affect flying speed" = "no_effect",
+    "Cannot determine from the data" = "cannot_determine"
+  )
+)
+```
+
+
+```{r}
+sd_question(
+  id     = "q2_claw_wingspan",
+  type   = "mc",
+  label  = "Q2. At the same claw length, which dragon type tends to have a larger wingspan — Mountain Dragons or Sea Dragons?",
+  option = c(
+    "Mountain Dragon"               = "mountain",
+    "Sea Dragon"                    = "sea",
+    "Both have the same wingspan"   = "same",
+    "Cannot determine from the data" = "cannot_determine"
+  )
+)
+```
+
+```{r}
+sd_question(
+  id     = "q3_flying_speed",
+  type   = "mc",
+  label  = "Q3. Which dragon type has the highest average flying speed?",
+  option = c(
+    "Forest"   = "forest",
+    "Mountain" = "mountain",
+    "Sea"      = "sea",
+    "All the same" = "all_same"
+  )
+)
+```
+
+```{r}
+sd_question(
+  id     = "q4_wingspan",
+  type   = "mc",
+  label  = "Q4. Which dragon type has the largest average wingspan?",
+  option = c(
+    "Forest"   = "forest",
+    "Mountain" = "mountain",
+    "Sea"      = "sea",
+    "All the same" = "all_same"
+  )
+)
+```
+
+```{r}
+sd_question(
+  id     = "q5_weight_speed",
+  type   = "mc",
+  label  = "Q5. How are weight and flying speed related?",
+  option = c(
+    "Positively related"            = "positive",
+    "Negatively related"            = "negative",
+    "No relation"                   = "no_relation",
+    "Cannot determine from the data" = "cannot_determine"
+  )
+)
+```
+
+```{r}
+sd_question(
+  id     = "q_confidence",
+  type   = "slider",
+  label  = "How confident are you in your answers?",
+  option = seq(0,10,1)
+)
+```
+
+```{r}
+sd_question(
+  id    = "q_reasoning",
+  type  = "textarea",
+  label = "How did you decide on your answer to Question 1? Please briefly describe your reasoning."
+)
+```
+
+
+--- followup
+
+# Follow-Up Questions
+
+These questions ask about what you remember from the session. Please answer from memory — no dashboard assistance for these questions.
+
+```{r}
+sd_question(
+  id     = "fu_q1_claw_wingspan",
+  type   = "mc",
+  label  = "FU1. At the same claw length, which dragon type tends to have a larger wingspan — Mountain Dragons or Sea Dragons?",
+  option = c(
+    "Mountain Dragon"               = "mountain",
+    "Sea Dragon"                    = "sea",
+    "Both have the same wingspan"   = "same",
+    "Cannot determine from the data" = "cannot_determine"
+  )
+)
+```
+
+```{r}
+sd_question(
+  id     = "fu_q1_confidence",
+  type   = "slider",
+  label  = "How confident are you in your answer to FU1?",
+  option = seq(0,10,1)
+)
+```
+
+```{r}
+sd_question(
+  id     = "fu_q2_weight_speed",
+  type   = "mc",
+  label  = "FU2. How are weight and flying speed related, across all dragon types?",
+  option = c(
+    "Positively related"            = "positive",
+    "Negatively related"            = "negative",
+    "No relation"                   = "no_relation",
+    "Cannot determine from the data" = "cannot_determine"
+  )
+)
+```
+
+```{r}
+sd_question(
+  id     = "fu_q2_confidence",
+  type   = "slider",
+  label  = "How confident are you in your answer to FU2?",
+  option = seq(0,10,1)
+)
+```
+
+```{r}
+sd_question(
+  id     = "fu_q3_predictor",
+  type   = "mc",
+  label  = "FU3. Of the dragon traits you saw — wingspan, weight, claw length, or claw thickness — which one is the strongest single predictor of flying speed?",
+  option = c(
+    "Wingspan"       = "wingspan",
+    "Weight"         = "weight",
+    "Claw length"    = "claw_length",
+    "Claw thickness" = "claw_thickness"
+  )
+)
+```
+
+```{r}
+sd_question(
+  id     = "fu_q3_confidence",
+  type   = "slider",
+  label  = "How confident are you in your answer to FU3?",
+  option = seq(0,10,1)
+)
+```
+
+```{r}
+sd_question(
+  id     = "fu_q4_process",
+  type   = "mc",
+  label  = "FU4. During the session, how did you mostly arrive at your answers?",
+  option = c(
+    "I mostly explored the dashboard/data myself and reasoned it out" = "self_explore",
+    "I mostly guessed"                                                = "guessed"
+  )
+)
+```
+
+```{r}
+sd_question(
+  id     = "fu_q5_confidence_shift",
+  type   = "mc",
+  label  = "FU5. Compared to how confident you felt during the session, how confident do you feel right now answering similar questions without the dashboard?",
+  option = c(
+    "More confident now" = "more",
+    "About the same"     = "same",
+    "Less confident now" = "less"
+  )
+)
+```
+
+--- end
+
+## Thank you for completing the survey!
+
+```{r}
+sd_close()
+```
