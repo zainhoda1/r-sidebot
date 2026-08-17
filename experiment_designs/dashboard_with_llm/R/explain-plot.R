@@ -16,14 +16,14 @@ plot_to_img_content <- function(p) {
 # shinyapps.io that turned into "magick needed to resize images", the image was
 # dropped, and the assistant answered from the prompt text alone. Resizing was a
 # no-op anyway: ellmer's "high" only shrinks images past 2000x768, and these are
-# 800x600, comfortably inside Anthropic's 1568px recommendation.
+# 900x600, comfortably inside Anthropic's 1568px recommendation.
 plot_to_img_content.plotly <- function(p) {
   # Create a temporary file
   tmp <- tempfile(fileext = ".png")
   on.exit(unlink(tmp))
 
   # Save the plot as an image
-  save_image(p, tmp, width = 800, height = 600)
+  save_image(p, tmp, width = 900, height = 600)
   ellmer::content_image_file(tmp, resize = "none")
 }
 
@@ -32,6 +32,6 @@ plot_to_img_content.ggplot <- function(p) {
   tmp <- tempfile(fileext = ".png")
   on.exit(unlink(tmp))
 
-  ggsave(tmp, p, width = 800, height = 600, units = "px", dpi = 100)
+  ggsave(tmp, p, width = 900, height = 600, units = "px", dpi = 100)
   ellmer::content_image_file(tmp, resize = "none")
 }

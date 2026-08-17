@@ -10,6 +10,7 @@ library(promises)
 library(ellmer)
 library(shinychat)
 library(surveydown)
+library(cowplot)
 
 # Everything this app reads or writes lives inside its own directory. Paths are
 # relative to the app directory, which Shiny makes the working directory; do not
@@ -70,8 +71,8 @@ scatter_vars <- c(
 dragon_species <- sort(unique(dragons$dragon_type))
 dragon_species_choices <- c("All Species", dragon_species)
 
-# A square plot, centred in whatever space the sidebar leaves. Each chart tab
-# gets its own output, so only the visible one is ever drawn.
+# A 6:4 (wider-than-tall) plot, centred in whatever space the sidebar leaves.
+# Each chart tab gets its own output, so only the visible one is ever drawn.
 plot_box <- function(id) {
   tags$div(
     style = paste(
@@ -81,7 +82,7 @@ plot_box <- function(id) {
     ),
     tags$div(
       style = paste(
-        "height: 100%; aspect-ratio: 1 / 1;",
+        "height: 100%; aspect-ratio: 6 / 4;",
         "max-width: 100%; flex: 0 0 auto;"
       ),
       plotOutput(id, height = "100%")
@@ -130,13 +131,13 @@ ui <- page_fillable(
               "scatter_x",
               "X axis",
               choices  = scatter_vars,
-              selected = "flying_speed_kmh"
+              selected = "weight_kg"
             ),
             selectInput(
               "scatter_y",
               "Y axis",
               choices  = scatter_vars,
-              selected = "wingspan_m"
+              selected = "claw_length_cm"
             )
           ),
           conditionalPanel(
@@ -220,6 +221,8 @@ server <- function(input, output, session) {
     p +
       labs(x = x_lab, y = y_lab) +
       theme_minimal(base_size = 13) +
+      #theme_cowplot(font_size = 13) +
+      #panel_border(color = "black", size = 1) +
       theme(legend.position = if (all_selected) "none" else "bottom")
   })
 

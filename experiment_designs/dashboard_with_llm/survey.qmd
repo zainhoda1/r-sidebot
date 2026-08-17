@@ -82,22 +82,6 @@ sd_question(
 )
 ```
 
-```{r}
-sd_question(
-  id     = "q1_confidence",
-  type   = "slider",
-  label  = "How confident are you in your answer to Q1?",
-  option = seq(0,10,1)
-)
-```
-
-```{r}
-sd_question(
-  id    = "q1_reasoning",
-  type  = "textarea",
-  label = "How did you decide on your answer to Q1? Please briefly describe your reasoning."
-)
-```
 
 ```{r}
 sd_question(
@@ -155,107 +139,23 @@ sd_question(
 )
 ```
 
---- followup
-
-# Follow-Up Questions
-
-These questions ask about what you remember from the session. Please answer from memory — no dashboard or AI assistance for these questions.
-
 ```{r}
 sd_question(
-  id     = "fu_q1_claw_wingspan",
-  type   = "mc",
-  label  = "FU1. At the same claw length, which dragon type tends to have a larger wingspan — Mountain Dragons or Sea Dragons?",
-  option = c(
-    "Mountain Dragon"               = "mountain",
-    "Sea Dragon"                    = "sea",
-    "Both have the same wingspan"   = "same",
-    "Cannot determine from the data" = "cannot_determine"
-  )
-)
-```
-
-```{r}
-sd_question(
-  id     = "fu_q1_confidence",
+  id     = "q_confidence",
   type   = "slider",
-  label  = "How confident are you in your answer to FU1?",
+  label  = "How confident are you in your answers?",
   option = seq(0,10,1)
 )
 ```
 
 ```{r}
 sd_question(
-  id     = "fu_q2_weight_speed",
-  type   = "mc",
-  label  = "FU2. How are weight and flying speed related, across all dragon types?",
-  option = c(
-    "Positively related"            = "positive",
-    "Negatively related"            = "negative",
-    "No relation"                   = "no_relation",
-    "Cannot determine from the data" = "cannot_determine"
-  )
+  id    = "q_reasoning",
+  type  = "textarea",
+  label = "How did you decide on your answers to these questions? Please briefly describe your reasoning."
 )
 ```
 
-```{r}
-sd_question(
-  id     = "fu_q2_confidence",
-  type   = "slider",
-  label  = "How confident are you in your answer to FU2?",
-  option = seq(0,10,1)
-)
-```
-
-```{r}
-sd_question(
-  id     = "fu_q3_predictor",
-  type   = "mc",
-  label  = "FU3. Of the dragon traits you saw — wingspan, weight, claw length, or claw thickness — which one is the strongest single predictor of flying speed?",
-  option = c(
-    "Wingspan"       = "wingspan",
-    "Weight"         = "weight",
-    "Claw length"    = "claw_length",
-    "Claw thickness" = "claw_thickness"
-  )
-)
-```
-
-```{r}
-sd_question(
-  id     = "fu_q3_confidence",
-  type   = "slider",
-  label  = "How confident are you in your answer to FU3?",
-  option = seq(0,10,1)
-)
-```
-
-```{r}
-sd_question(
-  id     = "fu_q4_process",
-  type   = "mc",
-  label  = "FU4. During the session, how did you mostly arrive at your answers?",
-  option = c(
-    "I mostly explored the dashboard/data myself and reasoned it out" = "self_explore",
-    "I mostly relied on the AI's explanations or visualizations"      = "relied_on_ai",
-    "I used a roughly even mix of both"                               = "mixed",
-    "I mostly guessed"                                                = "guessed"
-  )
-)
-```
-
-```{r}
-sd_question(
-  id     = "fu_q5_confidence_shift",
-  type   = "mc",
-  label  = "FU5. Compared to how confident you felt during the session, how confident do you feel right now answering similar questions without the dashboard or AI?",
-  option = c(
-    "More confident now" = "more",
-    "About the same"     = "same",
-    "Less confident now" = "less"
-  )
-)
-```
 
 --- end
 
