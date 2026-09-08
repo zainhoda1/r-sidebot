@@ -10,15 +10,15 @@ certifications <- c("Organic", "Conventional")
 # --- Varietal baselines -------------------------------------------------
 
 varietal_altitude_base <- c(
-  Bourbon = 1080,
-  Typica = 1360,
-  Gesha = 1600
+  Bourbon = 1180,
+  Typica = 1330,
+  Gesha = 1480
 )
 
 varietal_price_offset <- c(
   Bourbon = 0.00,
-  Typica = 4.64,
-  Gesha = 8.08
+  Typica = 3.00,
+  Gesha = 5.40
 )
 
 # Baseline yield by varietal, ordered inversely to price so yield vs price is
@@ -31,14 +31,14 @@ varietal_yield_base <- c(
 
 # Dollars per kg gained per metre of altitude WITHIN a varietal. Negative:
 # the reversal runs low-grown-is-better.
-altitude_price_gain <- -0.012
+altitude_price_gain <- -0.018
 
 # Dollars per kg per hectare of farm size WITHIN a varietal. Positive.
-farm_price_gain <- 0.55
+farm_price_gain <- 0.30
 
 # Residual price scatter, and the kg/ha lost per dollar of within-varietal
 # price premium.
-price_noise_sd <- 0.30
+price_noise_sd <- 0.22
 yield_price_gain <- -90
 
 coffee <- tibble(
