@@ -1,4 +1,4 @@
-varietal,growing_region,certification,farm_size_ha,tree_age_years,altitude_m,yield_kg_per_ha,price_per_kg_usd
+varietal,growing_region,certification,farm_size_acres,tree_age_years,altitude_m,yield_kg_per_acre,price_per_kg_usd
 Typica,South,Conventional,13.2,15.4,1339,1317,7.81
 Gesha,South,Organic,8.3,10,1537,1285,6.81
 Bourbon,Central,Organic,10.8,12.5,1370,1620,2.75
