@@ -114,7 +114,7 @@ coffee <- tibble(
   # Shuffle row order so the varietal-block structure isn't visible.
   slice_sample(prop = 1)
 
-write_csv(coffee, "coffee.csv")
+write_csv(coffee, file.path("coffee-data", "coffee.csv"))
 
 # --- Answer key --------------------------------------------------------------
 #
@@ -142,7 +142,8 @@ plot_coloured <- coffee %>%
     se = FALSE,
     colour = "black",
     linetype = "dashed"
-  )
+  ) +
+  theme(legend.position = 'none')
 
 # Each chart saved on its own at a fixed 6:4 aspect ratio to preview the app
 # layout.
