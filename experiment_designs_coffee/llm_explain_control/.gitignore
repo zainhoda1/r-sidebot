@@ -1,0 +1,39 @@
+# Secrets / environment
+.Renviron
+.env
+*.pem
+*.key
+
+# R
+.Rhistory
+.Rapp.history
+.RData
+.Rproj.user/
+*.Rproj
+.Ruserdata
+.Rprofile
+
+# renv
+renv/library/
+renv/local/
+renv/staging/
+renv/python/
+
+# Quarto / knitr
+/.quarto/
+*_files/
+*_cache/
+/_site/
+
+# App output
+logs/
+data/
+
+# Deployment
+rsconnect/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/

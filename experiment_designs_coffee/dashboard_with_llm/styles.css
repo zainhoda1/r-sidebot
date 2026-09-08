@@ -1,0 +1,81 @@
+:root {
+  --bslib-sidebar-main-bg: #f8f8f8;
+}
+
+/* Visualization controls: tightened so the whole set fits in the sidebar
+   without a scrollbar. */
+.viz-controls .shiny-input-container {
+  margin-bottom: 0.35rem;
+}
+
+.viz-controls .shiny-input-container:last-child {
+  margin-bottom: 0;
+}
+
+.viz-controls .control-label {
+  margin-bottom: 0.05rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* Checkbox rows: strip Bootstrap's per-row min-height and margin so the
+   group is only as tall as its text. */
+.viz-controls .form-check,
+.viz-controls .checkbox {
+  min-height: 0;
+  margin-bottom: 0;
+  line-height: 1.2;
+}
+
+.viz-controls .form-check label,
+.viz-controls .checkbox label {
+  font-size: 0.75rem;
+  line-height: 1.2;
+}
+
+.viz-controls .form-check-input {
+  margin-top: 0.15em;
+}
+
+.viz-controls .form-select {
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+  font-size: 0.75rem;
+  line-height: 1.3;
+  min-height: 0;
+  height: auto;
+  background-size: 12px 9px;
+}
+
+.popover {
+  --bs-popover-header-bg: #222;
+  --bs-popover-header-color: #fff;
+}
+
+.popover .btn-close {
+  filter: var(--bs-btn-close-white-filter);
+}
+shiny-chat-message table td,
+shiny-chat-message table th {
+  border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
+  padding: 3px;
+}
+
+shiny-chat-message table td {
+  font-family: var(--bs-font-monospace);
+}
+
+#show_title:empty, #show_query:empty {
+  /* Prevent empty title/query blocks from taking any space */
+  border: 0;
+  padding: 0;
+  margin-bottom: 0;
+}
+
+#show_title:empty, #show_query {
+  /* We can't affect the flex parent's gap, so instead we use a negative margin
+      to counteract it. In the case of #show_query, we don't even want the gap
+      even when it's showing, as it results in too much space between the two. */
+  margin-top: calc(-1 * var(--bslib-mb-spacer));
+}

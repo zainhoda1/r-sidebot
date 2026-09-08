@@ -1,0 +1,6 @@
+session_id,browser,ip_address,time_start,time_end,total_session_secs,q_familiarity,q_confidence,q_reasoning,attention_check_survey_content,current_page,n_dashboard_changes_total,n_chat_exchanges_total,mean_time_to_answer_dashboard_qs,mean_thinking_time_dashboard_qs,n_dashboard_questions_used_chat,n_dashboard_questions_copy_pasted
+6860fa08bd8630e0597a1a92f761fd01,"Chrome v152, Windows",127.0.0.1,2026-09-08T04:26:46Z,2026-09-08T04:27:28Z,42,NA,0,NA,NA,end,0,0,NA,NA,0,0
+c2d59b81e56facd637c2f6d823da85ab,"Chrome v152, Windows",127.0.0.1,2026-09-08T13:56:53Z,2026-09-08T14:00:05Z,192,none,3,test2,tet2,end,11,0,1.6666666666666667,5.225834131240845,0,0
+cdec2216e9b7790b61ac01940649436b,"Chrome v152, Windows",127.0.0.1,2026-09-08T13:41:59Z,2026-09-08T13:50:28Z,509,none,8,I saw the graphs and  used the LLM's help,test,end,23,2,26.833333333333332,6.351178685824077,1,1
+d8c0242ae6fe380933f76e451cffdf06,"Chrome v152, Windows",127.0.0.1,2026-09-08T04:32:16Z,2026-09-08T04:38:54Z,398,slight,4,"test
+",NA,q5,16,3,2.8333333333333335,8.56099303563436,1,0

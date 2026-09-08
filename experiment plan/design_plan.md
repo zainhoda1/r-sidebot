@@ -64,7 +64,6 @@ The AI *decides what to show* based on what the user thinks to ask.
 ### Shared Elements
 - Same dragon dataset
 - Same 5 in-session survey questions (embedded right panel, via `surveydown`)
-- Mouse tracking logged throughout the session
 - All chat exchanges logged (content + timestamps)
 - Session token identifies each participant
 

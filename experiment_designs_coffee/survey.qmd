@@ -1,0 +1,224 @@
+---
+theme-settings:
+  theme: default
+  barposition: top
+  footer-left: "Coffee Sourcing Dashboard Survey"
+
+survey-settings:
+  show-previous: false
+  use-cookies: false
+  auto-scroll: false
+  rate-survey: false
+  system-language: en
+  highlight-unanswered: true
+  highlight-color: blue
+  capture-metadata: true
+  all-required: true
+---
+
+```{r}
+library(surveydown)
+```
+
+```{r}
+htmltools::tags$script(htmltools::HTML('
+  (function() {
+    var mouseBuffer = [];
+
+    document.addEventListener("mousemove", function(e) {
+      mouseBuffer.push({
+        x: e.clientX,
+        y: e.clientY,
+        wx: window.innerWidth,
+        wy: window.innerHeight,
+        t: Date.now(),
+        pg: (typeof Shiny !== "undefined" && Shiny.shinyapp &&
+             Shiny.shinyapp.$inputValues &&
+             Shiny.shinyapp.$inputValues["sd_current_page"]) || ""
+      });
+    });
+
+    setInterval(function() {
+      if (mouseBuffer.length > 0 &&
+          typeof Shiny !== "undefined" && Shiny.setInputValue) {
+        var toSend = mouseBuffer.splice(0);
+        try {
+          Shiny.setInputValue("mouse_track", { events: toSend }, { priority: "event" });
+        } catch(e) {
+          mouseBuffer = toSend.concat(mouseBuffer);
+        }
+      }
+    }, 500);
+  })();
+'))
+```
+
+--- welcome
+
+# Coffee Sourcing Dashboard Survey
+
+Welcome! You are a buyer for a coffee importer. The dashboard shows data on
+**342 coffee farms**: the altitude the farm sits at, its size in hectares, the
+average age of its trees, how many kilograms it yields per hectare, and the
+price per kilogram its coffee sold for at auction. Each farm grows one of three
+arabica varietals.
+
+Use the dashboard to explore the data, then answer the questions that follow.
+
+```{r}
+sd_next(label = "Start Survey")
+```
+
+--- practice
+
+# Practice
+
+This one is just to get familiar with the dashboard controls. It doesn't count.
+
+```{r}
+sd_question(
+  id     = "practice_size_age",
+  type   = "mc",
+  label  = "Across all farms, how are farm size and tree age related?",
+  option = c(
+    "Positively related"             = "positive",
+    "Negatively related"             = "negative",
+    "No relation"                    = "no_relation",
+    "Cannot determine from the data" = "cannot_determine"
+  )
+)
+```
+
+```{r}
+sd_next(label = "Continue")
+```
+
+--- decision
+
+# Question 1
+
+```{r}
+sd_question(
+  id     = "q1_altitude",
+  type   = "mc",
+  label  = "Q1. A cooperative is buying land to plant a new coffee plot, and wants the coffee to sell for the highest possible price per kilogram. Based on the data, should they buy land at a higher or a lower altitude?",
+  option = c(
+    "Higher altitude"                      = "higher",
+    "Lower altitude"                       = "lower",
+    "Altitude doesn't affect price per kg" = "no_effect",
+    "Cannot determine from the data"       = "cannot_determine"
+  )
+)
+```
+
+```{r}
+sd_question(
+  id     = "q1_confidence",
+  type   = "slider",
+  label  = "How confident are you in your answer to Q1?",
+  option = seq(0, 10, 1)
+)
+```
+
+```{r}
+sd_question(
+  id    = "q1_reasoning",
+  type  = "textarea",
+  label = "How did you arrive at that answer? Please briefly describe your reasoning."
+)
+```
+
+```{r}
+sd_next(label = "Continue")
+```
+
+--- questions
+
+# Remaining questions
+
+```{r}
+sd_question(
+  id     = "q2_size_altitude",
+  type   = "mc",
+  label  = "Q2. Among farms of the same size, which varietal tends to be grown at a higher altitude — Caturra or Typica?",
+  option = c(
+    "Caturra"                             = "caturra",
+    "Typica"                              = "typica",
+    "Both are grown at the same altitude" = "same",
+    "Cannot determine from the data"      = "cannot_determine"
+  )
+)
+```
+
+```{r}
+sd_question(
+  id     = "q3_yield",
+  type   = "mc",
+  label  = "Q3. Which varietal has the highest average yield per hectare?",
+  option = c(
+    "Bourbon"      = "bourbon",
+    "Caturra"      = "caturra",
+    "Typica"       = "typica",
+    "All the same" = "all_same"
+  )
+)
+```
+
+```{r}
+sd_question(
+  id     = "q4_altitude_varietal",
+  type   = "mc",
+  label  = "Q4. Which varietal is grown at the highest average altitude?",
+  option = c(
+    "Bourbon"      = "bourbon",
+    "Caturra"      = "caturra",
+    "Typica"       = "typica",
+    "All the same" = "all_same"
+  )
+)
+```
+
+```{r}
+sd_question(
+  id     = "q5_yield_price",
+  type   = "mc",
+  label  = "Q5. How are yield per hectare and price per kilogram related?",
+  option = c(
+    "Positively related"             = "positive",
+    "Negatively related"             = "negative",
+    "No relation"                    = "no_relation",
+    "Cannot determine from the data" = "cannot_determine"
+  )
+)
+```
+
+```{r}
+sd_question(
+  id     = "q_confidence_overall",
+  type   = "slider",
+  label  = "How confident are you in your answers to Q2 through Q5?",
+  option = seq(0, 10, 1)
+)
+```
+
+```{r}
+sd_question(
+  id     = "q_familiarity",
+  type   = "mc",
+  label  = "Before today, how familiar were you with coffee growing or coffee sourcing?",
+  option = c(
+    "Not at all familiar" = "none",
+    "Slightly familiar"   = "slight",
+    "Moderately familiar" = "moderate",
+    "Very familiar"       = "very"
+  )
+)
+```
+
+--- end
+
+## Thank you for completing the survey!
+
+```{r}
+sd_close()
+```

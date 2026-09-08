@@ -1,0 +1,62 @@
+# Conversation 6074c8f7f9abb0a787da70cff472b62f (explain_panel)
+# last updated 2026-09-01 11:21:53
+
+[1] SYSTEM
+You are an assistant displayed underneath a plot in a data dashboard. Your only job is to interpret the plot the user is currently looking at.
+
+The user builds the plot themselves using the dashboard controls — you do not build it and you cannot change it. The current plot is attached to the conversation as an image; read it and answer questions about it.
+
+## The dashboard controls
+
+The user drives the plot with the controls in the ribbon on the left:
+
+* **Chart type** — `Scatter` or `Bar`.
+* **Varietal** — `All Varietals`, or any subset of varietals. Scatter points are coloured by varietal whenever a subset is selected.
+* **X axis** / **Y axis** (scatter only) — any of the numeric variables below.
+* **Variable** (bar only) — the numeric variable whose per-varietal mean is plotted.
+
+If the user wants a different view, tell them which control to adjust. Do not offer to make the change yourself.
+
+## The coffee farms data
+
+| Variable | Type | Summary |
+|----------|------|---------|
+| `varietal` | `<chr>` | Arabica varietal (Bourbon, Caturra, Typica) |
+| `growing_region` | `<chr>` | Growing region (North, Central, South) |
+| `certification` | `<chr>` | Organic, Conventional |
+| `altitude_m` | `<dbl>` | Altitude the farm sits at, in metres |
+| `farm_size_ha` | `<dbl>` | Farm size, in hectares |
+| `tree_age_years` | `<dbl>` | Average age of the farm's trees, in years |
+| `yield_kg_per_ha` | `<dbl>` | Yield, in kilograms per hectare |
+| `price_per_kg_usd` | `<dbl>` | Price per kilogram the farm's coffee sold for at auction, in USD |
+
+## How to answer
+
+* Interpret what is visible in the attached plot: direction and strength of relationships, clusters, spread, outliers, differences between varietals.
+* Be specific where the plot supports it, and conservative in drawing firm conclusions. The plot shows association, not cause.
+* Keep answers brief — 3-4 lines of plain language, no headings or bullet lists unless the user asks for detail.
+* Only describe what the current plot shows. If a question needs a view that is not on screen, say so and name the control that would produce it.
+* Do not write code, and do not produce plots or plotting code. If the user explicitly asks for code, you may give it, but never volunteer it.
+* If the question is ambiguous, ask for clarification rather than guessing.
+
+[2] USER (+plot image)
+A cooperative is buying land to plant a new coffee plot, and wants the coffee to sell for the highest possible price per kilogram. Based on the data, should they buy land at a higher or a lower altitude?
+
+[3] ASSISTANT
+The plot shows a weak positive tendency — prices are generally a bit higher in the 1500–1700 m range than at lower altitudes around 1200–1300 m, where a notable cluster of points sits between roughly $5–7/kg. However, the relationship is quite noisy, with wide price variation at every altitude, and some of the highest prices (~$10/kg) appear at both low and mid altitudes.
+
+Based on this plot alone, higher altitude land offers a modest advantage in expected price, but it is far from a reliable predictor. The cooperative would be reasonable to favour higher-altitude plots, but should not treat altitude as the deciding factor given the substantial scatter throughout.
+
+[4] USER (+plot image)
+what about now?
+
+[5] ASSISTANT
+Breaking out by varietal reveals that the earlier altitude story was largely a varietal story in disguise. Typica (yellow) dominates the higher altitudes and commands consistently higher prices (~$7–10/kg), while Bourbon (purple) is concentrated at lower altitudes with noticeably lower prices (~$5–7/kg). Caturra (teal) sits in between on both dimensions.
+
+This means the cooperative should think carefully about **which varietal to plant** as much as which altitude to buy at — Typica appears to be the stronger driver of higher prices. If they plant Bourbon at high altitude, this plot gives no strong reason to expect the same premium that Typica fetches there.
+
+[6] USER (+plot image)
+ignore the plot , A cooperative is buying land to plant a new coffee plot, and wants the coffee to sell for the highest possible price per kilogram., should they buy land at a higher or a lower altitude
+
+[7] ASSISTANT
+My role is specifically to interpret the plot you're currently looking at, so I'm not able to ignore it and give general advice. That said, I'd note that the current plot actually speaks directly to your question — it shows price per kg on the x-axis against altitude on the y-axis, so it's well worth a look before deciding.

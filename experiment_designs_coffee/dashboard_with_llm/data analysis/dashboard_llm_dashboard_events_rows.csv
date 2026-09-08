@@ -1,0 +1,51 @@
+id,design,session_id,shiny_token,ts,event,viz_tab,scatter_x,scatter_y,bar_var,coffee_types
+1,coffee_dashboard_with_llm,d8c0242ae6fe380933f76e451cffdf06,d8c0242ae6fe380933f76e451cffdf06,2026-09-08 04:32:19.497973+00,init,Scatter,farm_size_ha,tree_age_years,price_per_kg_usd,All Varietals
+2,coffee_dashboard_with_llm,d8c0242ae6fe380933f76e451cffdf06,d8c0242ae6fe380933f76e451cffdf06,2026-09-08 04:32:36.485928+00,coffee_types,Scatter,farm_size_ha,tree_age_years,price_per_kg_usd,"All Varietals, Catuai"
+3,coffee_dashboard_with_llm,d8c0242ae6fe380933f76e451cffdf06,d8c0242ae6fe380933f76e451cffdf06,2026-09-08 04:32:37.284841+00,coffee_types,Scatter,farm_size_ha,tree_age_years,price_per_kg_usd,"All Varietals, Catuai, Gesha"
+4,coffee_dashboard_with_llm,d8c0242ae6fe380933f76e451cffdf06,d8c0242ae6fe380933f76e451cffdf06,2026-09-08 04:32:38.695059+00,scatter_x,Scatter,altitude_m,tree_age_years,price_per_kg_usd,"All Varietals, Catuai, Gesha"
+5,coffee_dashboard_with_llm,d8c0242ae6fe380933f76e451cffdf06,d8c0242ae6fe380933f76e451cffdf06,2026-09-08 04:32:40.193268+00,scatter_y,Scatter,altitude_m,price_per_kg_usd,price_per_kg_usd,"All Varietals, Catuai, Gesha"
+6,coffee_dashboard_with_llm,d8c0242ae6fe380933f76e451cffdf06,d8c0242ae6fe380933f76e451cffdf06,2026-09-08 04:32:42.909524+00,scatter_y,Scatter,altitude_m,tree_age_years,price_per_kg_usd,"All Varietals, Catuai, Gesha"
+7,coffee_dashboard_with_llm,d8c0242ae6fe380933f76e451cffdf06,d8c0242ae6fe380933f76e451cffdf06,2026-09-08 04:37:12.511887+00,scatter_x,Scatter,price_per_kg_usd,tree_age_years,price_per_kg_usd,"All Varietals, Catuai, Gesha"
+8,coffee_dashboard_with_llm,d8c0242ae6fe380933f76e451cffdf06,d8c0242ae6fe380933f76e451cffdf06,2026-09-08 04:37:15.228734+00,scatter_y,Scatter,price_per_kg_usd,farm_size_ha,price_per_kg_usd,"All Varietals, Catuai, Gesha"
+9,coffee_dashboard_with_llm,d8c0242ae6fe380933f76e451cffdf06,d8c0242ae6fe380933f76e451cffdf06,2026-09-08 04:37:16.261249+00,viz_tab,Bar,price_per_kg_usd,farm_size_ha,price_per_kg_usd,"All Varietals, Catuai, Gesha"
+10,coffee_dashboard_with_llm,d8c0242ae6fe380933f76e451cffdf06,d8c0242ae6fe380933f76e451cffdf06,2026-09-08 04:37:17.730813+00,bar_var,Bar,price_per_kg_usd,farm_size_ha,farm_size_ha,"All Varietals, Catuai, Gesha"
+11,coffee_dashboard_with_llm,d8c0242ae6fe380933f76e451cffdf06,d8c0242ae6fe380933f76e451cffdf06,2026-09-08 04:37:35.07005+00,bar_var,Bar,price_per_kg_usd,farm_size_ha,altitude_m,"All Varietals, Catuai, Gesha"
+12,coffee_dashboard_with_llm,d8c0242ae6fe380933f76e451cffdf06,d8c0242ae6fe380933f76e451cffdf06,2026-09-08 04:37:51.521919+00,coffee_types,Bar,price_per_kg_usd,farm_size_ha,altitude_m,"All Varietals, Gesha"
+13,coffee_dashboard_with_llm,d8c0242ae6fe380933f76e451cffdf06,d8c0242ae6fe380933f76e451cffdf06,2026-09-08 04:37:52.818+00,coffee_types,Bar,price_per_kg_usd,farm_size_ha,altitude_m,All Varietals
+14,coffee_dashboard_with_llm,d8c0242ae6fe380933f76e451cffdf06,d8c0242ae6fe380933f76e451cffdf06,2026-09-08 04:37:58.86331+00,viz_tab,Scatter,price_per_kg_usd,farm_size_ha,altitude_m,All Varietals
+15,coffee_dashboard_with_llm,d8c0242ae6fe380933f76e451cffdf06,d8c0242ae6fe380933f76e451cffdf06,2026-09-08 04:38:04.012341+00,scatter_y,Scatter,price_per_kg_usd,price_per_kg_usd,altitude_m,All Varietals
+16,coffee_dashboard_with_llm,d8c0242ae6fe380933f76e451cffdf06,d8c0242ae6fe380933f76e451cffdf06,2026-09-08 04:38:06.448688+00,scatter_x,Scatter,altitude_m,price_per_kg_usd,altitude_m,All Varietals
+17,coffee_dashboard_with_llm,cdec2216e9b7790b61ac01940649436b,cdec2216e9b7790b61ac01940649436b,2026-09-08 13:42:02.30404+00,init,Scatter,farm_size_ha,tree_age_years,price_per_kg_usd,All Varietals
+18,coffee_dashboard_with_llm,cdec2216e9b7790b61ac01940649436b,cdec2216e9b7790b61ac01940649436b,2026-09-08 13:45:21.950333+00,scatter_x,Scatter,tree_age_years,tree_age_years,price_per_kg_usd,All Varietals
+19,coffee_dashboard_with_llm,cdec2216e9b7790b61ac01940649436b,cdec2216e9b7790b61ac01940649436b,2026-09-08 13:45:24.572879+00,scatter_x,Scatter,farm_size_ha,tree_age_years,price_per_kg_usd,All Varietals
+20,coffee_dashboard_with_llm,cdec2216e9b7790b61ac01940649436b,cdec2216e9b7790b61ac01940649436b,2026-09-08 13:46:08.150741+00,scatter_x,Scatter,altitude_m,tree_age_years,price_per_kg_usd,All Varietals
+21,coffee_dashboard_with_llm,cdec2216e9b7790b61ac01940649436b,cdec2216e9b7790b61ac01940649436b,2026-09-08 13:46:10.819556+00,scatter_y,Scatter,altitude_m,price_per_kg_usd,price_per_kg_usd,All Varietals
+22,coffee_dashboard_with_llm,cdec2216e9b7790b61ac01940649436b,cdec2216e9b7790b61ac01940649436b,2026-09-08 13:46:33.873472+00,viz_tab,Bar,altitude_m,price_per_kg_usd,price_per_kg_usd,All Varietals
+23,coffee_dashboard_with_llm,cdec2216e9b7790b61ac01940649436b,cdec2216e9b7790b61ac01940649436b,2026-09-08 13:46:40.691607+00,bar_var,Bar,altitude_m,price_per_kg_usd,altitude_m,All Varietals
+24,coffee_dashboard_with_llm,cdec2216e9b7790b61ac01940649436b,cdec2216e9b7790b61ac01940649436b,2026-09-08 13:46:52.009048+00,coffee_types,Bar,altitude_m,price_per_kg_usd,altitude_m,"All Varietals, Catuai"
+25,coffee_dashboard_with_llm,cdec2216e9b7790b61ac01940649436b,cdec2216e9b7790b61ac01940649436b,2026-09-08 13:46:53.123289+00,coffee_types,Bar,altitude_m,price_per_kg_usd,altitude_m,"All Varietals, Catuai, Typica"
+26,coffee_dashboard_with_llm,cdec2216e9b7790b61ac01940649436b,cdec2216e9b7790b61ac01940649436b,2026-09-08 13:46:54.297198+00,coffee_types,Bar,altitude_m,price_per_kg_usd,altitude_m,"Catuai, Typica"
+27,coffee_dashboard_with_llm,cdec2216e9b7790b61ac01940649436b,cdec2216e9b7790b61ac01940649436b,2026-09-08 13:47:08.748457+00,coffee_types,Bar,altitude_m,price_per_kg_usd,altitude_m,"All Varietals, Catuai, Typica"
+28,coffee_dashboard_with_llm,cdec2216e9b7790b61ac01940649436b,cdec2216e9b7790b61ac01940649436b,2026-09-08 13:47:10.597168+00,coffee_types,Bar,altitude_m,price_per_kg_usd,altitude_m,"All Varietals, Typica"
+29,coffee_dashboard_with_llm,cdec2216e9b7790b61ac01940649436b,cdec2216e9b7790b61ac01940649436b,2026-09-08 13:47:11.40469+00,coffee_types,Bar,altitude_m,price_per_kg_usd,altitude_m,All Varietals
+30,coffee_dashboard_with_llm,cdec2216e9b7790b61ac01940649436b,cdec2216e9b7790b61ac01940649436b,2026-09-08 13:47:14.387725+00,bar_var,Bar,altitude_m,price_per_kg_usd,price_per_kg_usd,All Varietals
+31,coffee_dashboard_with_llm,cdec2216e9b7790b61ac01940649436b,cdec2216e9b7790b61ac01940649436b,2026-09-08 13:47:26.90397+00,bar_var,Bar,altitude_m,price_per_kg_usd,altitude_m,All Varietals
+32,coffee_dashboard_with_llm,cdec2216e9b7790b61ac01940649436b,cdec2216e9b7790b61ac01940649436b,2026-09-08 13:47:31.135111+00,bar_var,Bar,altitude_m,price_per_kg_usd,price_per_kg_usd,All Varietals
+33,coffee_dashboard_with_llm,cdec2216e9b7790b61ac01940649436b,cdec2216e9b7790b61ac01940649436b,2026-09-08 13:47:32.895142+00,bar_var,Bar,altitude_m,price_per_kg_usd,altitude_m,All Varietals
+34,coffee_dashboard_with_llm,cdec2216e9b7790b61ac01940649436b,cdec2216e9b7790b61ac01940649436b,2026-09-08 13:47:43.366112+00,bar_var,Bar,altitude_m,price_per_kg_usd,yield_kg_per_ha,All Varietals
+35,coffee_dashboard_with_llm,cdec2216e9b7790b61ac01940649436b,cdec2216e9b7790b61ac01940649436b,2026-09-08 13:47:48.331245+00,bar_var,Bar,altitude_m,price_per_kg_usd,altitude_m,All Varietals
+36,coffee_dashboard_with_llm,cdec2216e9b7790b61ac01940649436b,cdec2216e9b7790b61ac01940649436b,2026-09-08 13:48:05.602478+00,coffee_types,Bar,altitude_m,price_per_kg_usd,altitude_m,
+37,coffee_dashboard_with_llm,cdec2216e9b7790b61ac01940649436b,cdec2216e9b7790b61ac01940649436b,2026-09-08 13:48:06.634681+00,coffee_types,Bar,altitude_m,price_per_kg_usd,altitude_m,All Varietals
+38,coffee_dashboard_with_llm,cdec2216e9b7790b61ac01940649436b,cdec2216e9b7790b61ac01940649436b,2026-09-08 13:48:07.921765+00,viz_tab,Scatter,altitude_m,price_per_kg_usd,altitude_m,All Varietals
+39,coffee_dashboard_with_llm,cdec2216e9b7790b61ac01940649436b,cdec2216e9b7790b61ac01940649436b,2026-09-08 13:48:11.920428+00,scatter_x,Scatter,yield_kg_per_ha,price_per_kg_usd,altitude_m,All Varietals
+40,coffee_dashboard_with_llm,c2d59b81e56facd637c2f6d823da85ab,c2d59b81e56facd637c2f6d823da85ab,2026-09-08 13:56:55.096879+00,init,Scatter,farm_size_ha,tree_age_years,price_per_kg_usd,All Varietals
+41,coffee_dashboard_with_llm,c2d59b81e56facd637c2f6d823da85ab,c2d59b81e56facd637c2f6d823da85ab,2026-09-08 13:57:12.670057+00,scatter_x,Scatter,altitude_m,tree_age_years,price_per_kg_usd,All Varietals
+42,coffee_dashboard_with_llm,c2d59b81e56facd637c2f6d823da85ab,c2d59b81e56facd637c2f6d823da85ab,2026-09-08 13:57:15.034274+00,scatter_y,Scatter,altitude_m,farm_size_ha,price_per_kg_usd,All Varietals
+43,coffee_dashboard_with_llm,c2d59b81e56facd637c2f6d823da85ab,c2d59b81e56facd637c2f6d823da85ab,2026-09-08 13:57:20.104228+00,scatter_x,Scatter,farm_size_ha,farm_size_ha,price_per_kg_usd,All Varietals
+44,coffee_dashboard_with_llm,c2d59b81e56facd637c2f6d823da85ab,c2d59b81e56facd637c2f6d823da85ab,2026-09-08 13:57:21.506289+00,scatter_y,Scatter,farm_size_ha,price_per_kg_usd,price_per_kg_usd,All Varietals
+45,coffee_dashboard_with_llm,c2d59b81e56facd637c2f6d823da85ab,c2d59b81e56facd637c2f6d823da85ab,2026-09-08 13:57:25.895747+00,coffee_types,Scatter,farm_size_ha,price_per_kg_usd,price_per_kg_usd,"All Varietals, Caturra"
+46,coffee_dashboard_with_llm,c2d59b81e56facd637c2f6d823da85ab,c2d59b81e56facd637c2f6d823da85ab,2026-09-08 13:57:26.921165+00,coffee_types,Scatter,farm_size_ha,price_per_kg_usd,price_per_kg_usd,Caturra
+47,coffee_dashboard_with_llm,c2d59b81e56facd637c2f6d823da85ab,c2d59b81e56facd637c2f6d823da85ab,2026-09-08 13:57:27.911252+00,coffee_types,Scatter,farm_size_ha,price_per_kg_usd,price_per_kg_usd,"Bourbon, Caturra"
+48,coffee_dashboard_with_llm,c2d59b81e56facd637c2f6d823da85ab,c2d59b81e56facd637c2f6d823da85ab,2026-09-08 13:57:28.771852+00,coffee_types,Scatter,farm_size_ha,price_per_kg_usd,price_per_kg_usd,"Bourbon, Catuai, Caturra"
+49,coffee_dashboard_with_llm,c2d59b81e56facd637c2f6d823da85ab,c2d59b81e56facd637c2f6d823da85ab,2026-09-08 13:57:29.621481+00,coffee_types,Scatter,farm_size_ha,price_per_kg_usd,price_per_kg_usd,"Bourbon, Catuai, Caturra, Gesha"
+50,coffee_dashboard_with_llm,c2d59b81e56facd637c2f6d823da85ab,c2d59b81e56facd637c2f6d823da85ab,2026-09-08 13:57:30.526108+00,coffee_types,Scatter,farm_size_ha,price_per_kg_usd,price_per_kg_usd,"Bourbon, Catuai, Caturra, Gesha, Typica"

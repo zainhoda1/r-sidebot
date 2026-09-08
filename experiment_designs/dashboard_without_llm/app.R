@@ -11,6 +11,7 @@ library(dplyr)
 library(surveydown)
 
 source(here::here("R", "log_dashboard_settings.R"))
+source(here::here("R", "log_mouse_tracking.R"))
 
 # Data & config ---------------------------------------------------------------
 
@@ -19,6 +20,7 @@ design_id <- "dashboard_no_llm"
 db <- sd_db_connect()
 
 dashboard_events_init(db)
+mouse_tracking_init()
 
 dragons <- readr::read_csv(here("data", "dragons.csv"))
 
@@ -33,52 +35,24 @@ scatter_vars <- c(
 dragon_species <- sort(unique(dragons$dragon_type))
 dragon_species_choices <- c("All Species", dragon_species)
 
-# A plot box with a fixed 6:4 (width:height) aspect ratio, centred in
-# whatever space its container leaves. The exact pixel size is set by JS
-# (see sized_plot_js below), scaling the box up to fill the outer box while
-# preserving the aspect ratio -- aspect-ratio alone only caps the *narrower*
-# dimension, so a container that doesn't match the ratio would otherwise
-# leave the box under- or over-sized on one axis.
-plot_box <- function(...) {
+# A 6:4 (wider-than-tall) plot, centred in whatever space the sidebar leaves.
+# Each chart tab gets its own output, so only the visible one is ever drawn.
+plot_box <- function(id) {
   tags$div(
-    class = "sized-plot-outer",
     style = paste(
-      "height: 100%; width: 100%; min-height: 0; min-width: 0;",
+      "height: 100%; width: 100%; min-height: 0;",
       "display: flex; flex-direction: row;",
       "align-items: center; justify-content: center;"
     ),
     tags$div(
-      class = "sized-plot",
-      style = "aspect-ratio: 6 / 4; flex: 0 0 auto;",
-      ...
+      style = paste(
+        "height: 100%; aspect-ratio: 6 / 4;",
+        "max-width: 100%; flex: 0 0 auto;"
+      ),
+      plotOutput(id, height = "100%")
     )
   )
 }
-
-sized_plot_js <- "
-function sizeSizedPlots() {
-  var ratio = 6 / 4;
-  document.querySelectorAll('.sized-plot-outer').forEach(function(outer) {
-    var box = outer.querySelector('.sized-plot');
-    if (!box) return;
-    var width = outer.clientWidth;
-    var height = outer.clientHeight;
-    if (width / height > ratio) {
-      width = height * ratio;
-    } else {
-      height = width / ratio;
-    }
-    box.style.width = Math.max(0, width) + 'px';
-    box.style.height = Math.max(0, height) + 'px';
-  });
-}
-document.addEventListener('DOMContentLoaded', function() {
-  document.querySelectorAll('.sized-plot-outer').forEach(function(outer) {
-    new ResizeObserver(sizeSizedPlots).observe(outer);
-  });
-  sizeSizedPlots();
-});
-"
 
 # UI --------------------------------------------------------------------------
 
@@ -86,46 +60,39 @@ ui <- page_fillable(
   style = "background-color: rgb(248, 248, 248);",
   title = NULL,
   includeCSS(here("styles.css")),
-  tags$head(tags$script(HTML(sized_plot_js))),
+  tags$script(src = "mouse_tracking.js"),
   useBusyIndicators(),
   layout_columns(
     col_widths = c(6, 6),
-    # Left: Visualization
-    card(
-      style = "min-height: 450px; overflow: hidden;",
-      card_header("Visualization"),
-      # Top: dragon species filter, applies to both plots
-      tags$div(
-        style = "padding: 0 1rem 0.25rem;",
-        checkboxGroupInput(
-          "dragon_species",
-          "Dragon species",
-          choices  = dragon_species_choices,
-          selected = "All Species",
-          inline   = TRUE
-        )
-      ),
-      tags$div(
-        class = "html-fill-item",
-        style = paste(
-          "flex: 1 1 0; min-height: 0; display: flex;",
-          "flex-direction: row; gap: 1.25rem; padding: 0.5rem 1rem 1rem;",
-          "overflow: hidden;"
-        ),
-        # Left: the rest of the dials, in a ribbon
-        tags$div(
-          style = paste(
-            "flex: 0 0 200px; display: flex; flex-direction: column;",
-            "gap: 1rem; overflow-y: auto;"
-          ),
-          radioButtons(
-            "plot_type",
-            "Plot type",
-            choices  = c("Scatter", "Bar"),
-            selected = "Scatter"
+    # Left: visualization on top, empty space underneath (where the LLM
+    # assistant panel sits in the dashboard_with_llm design), equally sized.
+    # The controls sit in a sidebar inside the visualization card, so they
+    # only take width from the plot.
+    layout_columns(
+      col_widths = 12,
+      row_heights = c(1, 1),
+      # Top: visualization. Chart type is the tab strip; the remaining controls
+      # sit in a sidebar down the left of the card, sized to fit without a
+      # scrollbar (see .viz-controls in styles.css).
+      navset_card_tab(
+        id = "viz_tab",
+        title = "Choose a chart type:",
+        selected = "Scatter",
+        wrapper = function(...) card_body(..., class = "p-0", style = "min-height: 0;"),
+        sidebar = sidebar(
+          width = 170,
+          open  = "always",
+          class = "viz-controls",
+          gap   = "0",
+          padding = "0.5rem",
+          checkboxGroupInput(
+            "dragon_species",
+            "Dragon species",
+            choices  = dragon_species_choices,
+            selected = "All Species"
           ),
           conditionalPanel(
-            condition = "input.plot_type == 'Scatter'",
+            condition = "input.viz_tab == 'Scatter'",
             selectInput(
               "scatter_x",
               "X axis",
@@ -140,35 +107,27 @@ ui <- page_fillable(
             )
           ),
           conditionalPanel(
-            condition = "input.plot_type == 'Bar'",
+            condition = "input.viz_tab == 'Bar'",
             selectInput(
               "bar_var",
               "Variable",
               choices  = scatter_vars,
-              selected = "claw_length_cm"
+              selected = "flying_speed_kmh"
             )
           )
         ),
-        # Right: the square plot
-        tags$div(
-          style = "flex: 1 1 0; min-height: 0; min-width: 0; overflow: hidden;",
-          plot_box(
-            conditionalPanel(
-              condition = "input.plot_type == 'Scatter'",
-              style     = "height: 100%;",
-              plotOutput("scatter_plot", height = "100%")
-            ),
-            conditionalPanel(
-              condition = "input.plot_type == 'Bar'",
-              style     = "height: 100%;",
-              plotOutput("bar_plot", height = "100%")
-            )
-          )
-        )
+        nav_panel("Scatter", plot_box("viz_plot_scatter")),
+        nav_panel("Bar",     plot_box("viz_plot_bar"))
+      ),
+      # Bottom: empty white space where the assistant panel sits in the
+      # dashboard_with_llm design.
+      card(
+        style = "min-height: 0;"
       )
     ),
     # Right: Survey
     card(
+      id = "survey_container",
       style = "min-height: 450px; overflow-y: auto;",
       sd_ui()
     )
@@ -230,13 +189,14 @@ server <- function(input, output, session) {
       geom_col(alpha = 0.85, width = 0.6) +
       scale_fill_viridis_d() +
       labs(x = NULL, y = paste("Mean", lab)) +
-      theme_cowplot(font_size = 13) +
-      panel_border(color = "black", size = 1) +
+      theme_minimal(base_size = 13) +
       theme(legend.position = "none")
   })
 
-  output$scatter_plot <- renderPlot({ scatter_plot_r() })
-  output$bar_plot     <- renderPlot({ bar_plot_r() })
+  # One output per tab; Shiny suspends the hidden one, so only the visible
+  # chart is ever drawn.
+  output$viz_plot_scatter <- renderPlot({ scatter_plot_r() })
+  output$viz_plot_bar     <- renderPlot({ bar_plot_r() })
 
   # --- Dashboard settings logging ---------------------------------------------
 
@@ -281,6 +241,28 @@ server <- function(input, output, session) {
   })
 
 
+
+  # --- Mouse tracking on the survey panel --------------------------------------
+
+  observeEvent(input$mouse_move, {
+    m <- input$mouse_move
+    log_mouse_move(
+      session_id  = survey_session_id(),
+      shiny_token = session$token,
+      x = m$x, y = m$y, width = m$width, height = m$height,
+      client_x = m$client_x, client_y = m$client_y, client_ts = m$client_ts
+    )
+  })
+
+  observeEvent(input$mouse_hover, {
+    h <- input$mouse_hover
+    log_mouse_hover(
+      session_id  = survey_session_id(),
+      shiny_token = session$token,
+      hovering    = h$hovering,
+      client_ts   = h$client_ts
+    )
+  })
 
   # --- Survey server ----------------------------------------------------------
 

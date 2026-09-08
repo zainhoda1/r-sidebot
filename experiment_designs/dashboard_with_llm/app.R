@@ -110,7 +110,7 @@ ui <- page_fillable(
       # scrollbar (see .viz-controls in styles.css).
       navset_card_tab(
         id = "viz_tab",
-        title = "Visualization",
+        title = "Choose a chart type:",
         selected = "Scatter",
         wrapper = function(...) card_body(..., class = "p-0", style = "min-height: 0;"),
         sidebar = sidebar(
@@ -156,7 +156,7 @@ ui <- page_fillable(
       # Bottom: ask the assistant about the plot above
       card(
         style = "min-height: 0;",
-        card_header("Ask about this plot"),
+        card_header("Ask the AI about this plot"),
         card_body(
           class = "p-0",
           style = "min-height: 0;",

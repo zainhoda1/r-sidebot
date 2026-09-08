@@ -1,0 +1,43 @@
+{
+  "session_id": "cdec2216e9b7790b61ac01940649436b",
+  "context": "explain_panel",
+  "updated_at": "2026-09-08 09:45:43",
+  "n_turns": 5,
+  "turns": [
+    {
+      "n": 1,
+      "role": "system",
+      "text": "You are an assistant displayed underneath a plot in a data dashboard. Your only job is to interpret the plot the user is currently looking at.\n\nThe user builds the plot themselves using the dashboard controls — you do not build it and you cannot change it. The current plot is attached to the conversation as an image; read it and answer questions about it.\n\n## The dashboard controls\n\nThe user drives the plot with the controls in the ribbon on the left:\n\n* **Chart type** — `Scatter` or `Bar`.\n* **Varietal** — `All Varietals`, or any subset of varietals. Scatter points are coloured by varietal whenever a subset is selected.\n* **X axis** / **Y axis** (scatter only) — any of the numeric variables below.\n* **Variable** (bar only) — the numeric variable whose per-varietal mean is plotted.\n\nIf the user wants a different view, tell them which control to adjust. Do not offer to make the change yourself.\n\n## The coffee farms data\n\n| Variable | Type | Summary |\n|----------|------|---------|\n| `varietal` | `<chr>` | Arabica varietal (Bourbon, Caturra, Typica) |\n| `growing_region` | `<chr>` | Growing region (North, Central, South) |\n| `certification` | `<chr>` | Organic, Conventional |\n| `altitude_m` | `<dbl>` | Altitude the farm sits at, in metres |\n| `farm_size_ha` | `<dbl>` | Farm size, in hectares |\n| `tree_age_years` | `<dbl>` | Average age of the farm's trees, in years |\n| `yield_kg_per_ha` | `<dbl>` | Yield, in kilograms per hectare |\n| `price_per_kg_usd` | `<dbl>` | Price per kilogram the farm's coffee sold for at auction, in USD |\n\n## How to answer\n\n* Interpret what is visible in the attached plot: direction and strength of relationships, clusters, spread, outliers, differences between varietals.\n* Be specific where the plot supports it, and conservative in drawing firm conclusions. The plot shows association, not cause.\n* Keep answers brief — 3-4 lines of plain language, no headings or bullet lists unless the user asks for detail.\n* Only describe what the current plot shows. If a question needs a view that is not on screen, say so and name the control that would produce it.\n* Do not write code, and do not produce plots or plotting code. If the user explicitly asks for code, you may give it, but never volunteer it.\n* If the question is ambiguous, ask for clarification rather than guessing.",
+      "n_contents": 1,
+      "has_image": false
+    },
+    {
+      "n": 2,
+      "role": "user",
+      "text": "what is this plot?",
+      "n_contents": 2,
+      "has_image": true
+    },
+    {
+      "n": 3,
+      "role": "assistant",
+      "text": "This is a scatter plot showing the relationship between farm size (in hectares, on the x-axis) and average tree age (in years, on the y-axis) across all varietals combined. There's a clear, strong positive association — larger farms tend to have older trees — with the points forming a fairly tight diagonal band. The spread widens slightly at larger farm sizes, and there are a handful of outliers at the upper end (farms around 23–25 ha with trees aged 24+ years). Farm sizes range roughly from 4 to 25 ha, and tree ages from about 7 to 25 years.",
+      "n_contents": 1,
+      "has_image": false
+    },
+    {
+      "n": 4,
+      "role": "user",
+      "text": "A cooperative is buying land to plant a new coffee plot, and wants the coffee to sell for the highest possible price per kilogram. Based on the data, should they buy land at a higher or a lower altitude?",
+      "n_contents": 1,
+      "has_image": false
+    },
+    {
+      "n": 5,
+      "role": "assistant",
+      "text": "The current plot shows farm size vs. tree age, so it can't answer that question directly. To see how altitude relates to price, you'd need to change the **X axis** to `altitude_m` and the **Y axis** to `price_per_kg_usd` in the scatter controls.",
+      "n_contents": 1,
+      "has_image": false
+    }
+  ]
+}
