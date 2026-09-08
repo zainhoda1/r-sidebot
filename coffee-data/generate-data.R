@@ -10,15 +10,15 @@ certifications <- c("Organic", "Conventional")
 # --- Varietal baselines -------------------------------------------------
 
 varietal_altitude_base <- c(
-  Bourbon = 1180,
+  Bourbon = 1232,
   Typica = 1330,
-  Gesha = 1480
+  Gesha = 1428
 )
 
 varietal_price_offset <- c(
   Bourbon = 0.00,
-  Typica = 3.00,
-  Gesha = 5.40
+  Typica = 2.05,
+  Gesha = 4.10
 )
 
 # Baseline yield by varietal, ordered inversely to price so yield vs price is
@@ -34,11 +34,11 @@ varietal_yield_base <- c(
 altitude_price_gain <- -0.018
 
 # Dollars per kg per hectare of farm size WITHIN a varietal. Positive.
-farm_price_gain <- 0.30
+farm_price_gain <- 0.25
 
 # Residual price scatter, and the kg/ha lost per dollar of within-varietal
 # price premium.
-price_noise_sd <- 0.22
+price_noise_sd <- 0.25
 yield_price_gain <- -90
 
 coffee <- tibble(
@@ -128,21 +128,12 @@ write_csv(coffee, file.path("coffee-data", "coffee.csv"))
 # Uncoloured: should read as a single cloud drifting upward.
 plot_uncoloured <- coffee %>%
   ggplot(aes(x = altitude_m, y = price_per_kg_usd)) +
-  geom_point(alpha = 0.6) +
-  geom_smooth(method = "lm", se = FALSE, colour = "black", linetype = "dashed")
+  geom_point(alpha = 0.6)
 
 # Coloured: the same cloud splits into three downward-sloping varietals.
 plot_coloured <- coffee %>%
   ggplot(aes(x = altitude_m, y = price_per_kg_usd, color = varietal)) +
   geom_point() +
-  geom_smooth(method = "lm", se = FALSE) +
-  geom_smooth(
-    aes(group = 1),
-    method = "lm",
-    se = FALSE,
-    colour = "black",
-    linetype = "dashed"
-  ) +
   theme(legend.position = 'none')
 
 # Each chart saved on its own at a fixed 6:4 aspect ratio to preview the app
