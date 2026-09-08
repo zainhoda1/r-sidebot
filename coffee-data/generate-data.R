@@ -3,7 +3,7 @@ library(tidyverse)
 set.seed(42)
 
 n_per_varietal <- 120
-varietals <- c("Bourbon", "Caturra", "Typica", "Catuai", "Gesha")
+varietals <- c("Bourbon", "Typica", "Gesha")
 regions <- c("North", "South", "Central")
 certifications <- c("Organic", "Conventional")
 
@@ -11,17 +11,13 @@ certifications <- c("Organic", "Conventional")
 
 varietal_altitude_base <- c(
   Bourbon = 1080,
-  Caturra = 1230,
   Typica = 1360,
-  Catuai = 1470,
   Gesha = 1600
 )
 
 varietal_price_offset <- c(
   Bourbon = 0.00,
-  Caturra = 2.48,
   Typica = 4.64,
-  Catuai = 6.48,
   Gesha = 8.08
 )
 
@@ -29,9 +25,7 @@ varietal_price_offset <- c(
 # negative both pooled and within.
 varietal_yield_base <- c(
   Bourbon = 1430,
-  Caturra = 1350,
   Typica = 1260,
-  Catuai = 1170,
   Gesha = 1030
 )
 
@@ -132,13 +126,13 @@ write_csv(coffee, "coffee.csv")
 #   Q5        yield vs price                   -> Negatively related
 
 # Uncoloured: should read as a single cloud drifting upward.
-coffee %>%
+plot_uncoloured <- coffee %>%
   ggplot(aes(x = altitude_m, y = price_per_kg_usd)) +
   geom_point(alpha = 0.6) +
   geom_smooth(method = "lm", se = FALSE, colour = "black", linetype = "dashed")
 
-# Coloured: the same cloud splits into five downward-sloping varietals.
-coffee %>%
+# Coloured: the same cloud splits into three downward-sloping varietals.
+plot_coloured <- coffee %>%
   ggplot(aes(x = altitude_m, y = price_per_kg_usd, color = varietal)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE) +
@@ -149,3 +143,21 @@ coffee %>%
     colour = "black",
     linetype = "dashed"
   )
+
+# Each chart saved on its own at a fixed 6:4 aspect ratio to preview the app
+# layout.
+ggsave(
+  file.path("coffee-data", "altitude-price-uncoloured.png"),
+  plot_uncoloured,
+  width = 6,
+  height = 4,
+  dpi = 300
+)
+
+ggsave(
+  file.path("coffee-data", "altitude-price-coloured.png"),
+  plot_coloured,
+  width = 6,
+  height = 4,
+  dpi = 300
+)
